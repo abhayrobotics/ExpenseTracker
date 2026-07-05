@@ -1,7 +1,14 @@
 
 const AddExpense = () => {
   return (
-    <div>AddExpense</div>
+    <div>
+      <div>AddExpense</div>
+      <div>
+
+      <input type="number" placeholder="Enter the Amount"></input>
+      <input type="text" placeholder="Enter the Amount"></input>
+      </div>
+    </div>
   )
 }
 
