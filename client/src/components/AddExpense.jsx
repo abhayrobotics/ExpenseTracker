@@ -17,7 +17,16 @@ const AddExpense = ({ AddNewExpense, onClose }) => {
   // calling the parent function to update
   const handleAdd = () => {
     AddNewExpense(amount, category, subcategory, date,notes);
+    onClose()
   };
+
+  // handlecategory
+  const handlecategory =(e)=>{
+    const newCategoySelected = e.target.value
+    setCategory(newCategoySelected)
+    setSubcategory(SUBCATEGORY[newCategoySelected][0])
+
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
@@ -54,7 +63,7 @@ const AddExpense = ({ AddNewExpense, onClose }) => {
             </label>
             <select
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => handlecategory(e)}
               className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
             >
               {CATEGORY?.map((item) => {

@@ -20,9 +20,15 @@ const Home = () => {
     }
   },[])
 
+  // Closing the popUp
+  const onClose=()=>{
+    setDisplayAddExpense(false)
+  }
+
 // adding new item by the data received from 
   const AddNewExpense = (amount, category, subcategory, date,notes) => {
     const newExpense = {
+      id: crypto.randomUUID(),
       amount,
       category,
       subcategory,
@@ -34,14 +40,11 @@ const Home = () => {
     setAllExpense(LatestExpense)
 
     localStorage.setItem("AllExpense", JSON.stringify(LatestExpense))
-    onClose()
+    
 
   }
 
-  // Closing the popUp
-  const onClose=()=>{
-    setDisplayAddExpense(!displayAddExpense)
-  }
+  
   return (
     <div className="w-full  border m-auto p-2 overflow-hidden">
       <Dashboard />
