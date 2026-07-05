@@ -1,10 +1,10 @@
 export const CATEGORY = [
+  "Grocery",
   "House Rent",
   "Parent Expense",
   "Credit Card Bill",
   "Maid",
   "Milk",
-  "Grocery",
   "Water",
   "Wife",
   "Miscellaneous",
