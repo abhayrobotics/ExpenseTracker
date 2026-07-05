@@ -44,7 +44,7 @@ const ExpenseList = ({AllExpense}) => {
             {AllExpense?.map((item, index) => {
               return (
 
-                <tr key={index} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition">
+                <tr key={index} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
                   <td className="px-2 py-1 border-b border-gray-200">{index + 1}</td>
                   <td className="px-2 py-1 border-b border-gray-200">{item?.category}</td>
                   <td className="px-2 py-1 border-b border-gray-200">{item?.subcategory}</td>
@@ -52,9 +52,9 @@ const ExpenseList = ({AllExpense}) => {
                     ₹{item?.amount}
                   </td>
                   <td className="px-2 py-1 border-b border-gray-200">{item?.date}</td>
-                  <td className="px-2 py-1 border-b border-gray-200">{item?.notes}</td>
-                  <td className="px-2 py-1 border-b border-gray-200">📝</td>
-                  <td className="px-2 py-1 border-b border-gray-200">❌</td>
+                  <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
+                  <td className="px-2 py-1 border-b border-gray-200">📝 ❌</td>
+                  {/* <td className="px-2 py-1 border-b border-gray-200"></td> */}
                 </tr>)
             })}
 

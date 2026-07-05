@@ -1,53 +1,135 @@
-import { useState } from "react"
-import { CATEGORY } from "../storage/constant"
-import {SUBCATEGORY } from "../storage/constant"
+import { useState } from "react";
+import { CATEGORY, SUBCATEGORY } from "../storage/constant";
 
-const AddExpense = ({AddNewExpense}) => {
-  const [amount,setAmount] = useState(0)
-  const [category,setCategory] = useState("Grocery")
-  const [subcategory,setSubcategory] = useState("")
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0])
-  
+const AddExpense = ({ AddNewExpense, onClose }) => {
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState("Grocery");
+  const [subcategory, setSubcategory] = useState(SUBCATEGORY[category][0]);
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [notes,setNotes] =useState("")
 
-  // setting the min date allowed
-    const maxDate = () => {
-        let today = new Date();
-        // console.log(today.toISOString().split("T")[0])
+  // setting the max date allowed
+  const maxDate = () => {
+    let today = new Date();
+    return today.toISOString().split("T")[0];
+  };
 
-        return today.toISOString().split("T")[0]
-    }
-    // calling the parent function to update
-    const handleAdd =()=>{
-      AddNewExpense(amount,
-          category,
-          subcategory,
-          date)
-    }
+  // calling the parent function to update
+  const handleAdd = () => {
+    AddNewExpense(amount, category, subcategory, date,notes);
+  };
 
   return (
-    <div>
-      <div>AddExpense</div>
-      <div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+      <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+          <h2 className="text-lg font-semibold text-gray-800">Add Expense</h2>
+          <button
+            onClick={onClose}
+            className="rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          >
+            ✕
+          </button>
+        </div>
 
-      <input type="number" placeholder="Enter the Amount" value={amount} onChange={(e)=>setAmount(e.target.value)}></input>
-      <select onChange={(e)=>setCategory(e.target.value)} >
-        {CATEGORY?.map((item)=>{
-          return(<option key={item} value={item}>{item}</option>)
-        })}      
-      </select>
+        {/* Body */}
+        <div className="space-y-4 px-5 py-5">
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Amount
+            </label>
+            <input
+              type="number"
+              placeholder="Enter the amount"
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+              className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+            />
+          </div>
 
-      <select onChange={(e)=>setSubcategory(e.target.value)}>
-        {SUBCATEGORY[category]?.map((item)=>{
-          return(<option key={item} value={item}>{item}</option>)
-        })}
-      </select>
-      <input type="text" placeholder="Notes"></input>
-      <input type="date" max={maxDate()} value={date} onChange={(e)=>setDate(e.target.value)}></input>
-      <button onClick={handleAdd}>Add Expense</button>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Category
+            </label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+            >
+              {CATEGORY?.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Subcategory
+            </label>
+            <select
+              value={subcategory}
+              onChange={(e) => setSubcategory(e.target.value)}
+              className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+            >
+              {SUBCATEGORY[category]?.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Notes
+            </label>
+            <input
+              type="text"
+              placeholder="Notes"
+              className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" value={notes} onChange={(e)=>setNotes(e.target.value)} maxLength={20}
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Date
+            </label>
+            <input
+              type="date"
+              max={maxDate()}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+            />
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="flex justify-end gap-3 border-t border-gray-200 px-5 py-4">
+          <button
+            onClick={onClose}
+            className="rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Cancel
+          </button>
+
+          <button
+            onClick={handleAdd}
+            className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+          >
+            Add Expense
+          </button>
+        </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default AddExpense
+export default AddExpense;

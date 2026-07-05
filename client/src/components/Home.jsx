@@ -6,6 +6,7 @@ import ExpenseList from "./ExpenseList"
 const Home = () => {
 
   const [AllExpense, setAllExpense] = useState([])
+  const [displayAddExpense,setDisplayAddExpense] = useState(false)
 
   useEffect(()=>{
     console.log(AllExpense.length)
@@ -20,27 +21,34 @@ const Home = () => {
   },[])
 
 // adding new item by the data received from 
-  const AddNewExpense = (amount, category, subcategory, date) => {
+  const AddNewExpense = (amount, category, subcategory, date,notes) => {
     const newExpense = {
       amount,
       category,
       subcategory,
-      date
-
+      date,
+      notes
     }
     console.log(AllExpense)
     const LatestExpense = [...AllExpense, newExpense]
     setAllExpense(LatestExpense)
 
     localStorage.setItem("AllExpense", JSON.stringify(LatestExpense))
-    
+    onClose()
 
+  }
+
+  // Closing the popUp
+  const onClose=()=>{
+    setDisplayAddExpense(!displayAddExpense)
   }
   return (
     <div className="w-full  border m-auto p-2 overflow-hidden">
       <Dashboard />
-      <div className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white hover: text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
-      <AddExpense AddNewExpense={AddNewExpense} />
+      <div onClick={()=>setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
+      {displayAddExpense &&
+      <AddExpense AddNewExpense={AddNewExpense} onClose={onClose}/>
+      }
       <ExpenseList AllExpense ={AllExpense}/>
     </div>
   )
