@@ -14,3 +14,9 @@
     - expense suggestion AI
 
 
+
+# Server
+
+# Start the project
+- npm i express
+- create a server.js file in root
