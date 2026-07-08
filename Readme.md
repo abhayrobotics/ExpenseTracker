@@ -20,3 +20,9 @@
 # Start the project
 - npm i express
 - create a server.js file in root
+
+## Database setup
+-   create a Database
+-   npm install express cors dotenv
+-   npm install prisma --save-dev
+-   npm install @prisma/client
