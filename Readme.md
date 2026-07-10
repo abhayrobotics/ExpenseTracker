@@ -21,7 +21,9 @@
 - npm i express
 - create a server.js file in root
 
-
-
-
-npx prisma migrate dev --name init
+## Database setup
+-   create a Database
+-   npm install express cors dotenv
+-   npm install prisma --save-dev
+-   npm install @prisma/client
+-   npx prisma init

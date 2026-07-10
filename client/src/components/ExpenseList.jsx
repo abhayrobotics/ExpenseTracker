@@ -44,7 +44,7 @@ const ExpenseList = ({ AllExpense }) => {
               {AllExpense?.map((item, index) => {
                 return (
 
-                  <tr key={item?.id} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
+                  <tr key={index} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
                     <td className="px-2 py-1 border-b border-gray-200">{index + 1}</td>
                     <td className="px-2 py-1 border-b border-gray-200">{item?.category}</td>
                     <td className="px-2 py-1 border-b border-gray-200">{item?.subcategory}</td>

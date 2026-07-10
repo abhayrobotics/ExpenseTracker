@@ -6,53 +6,69 @@ import ExpenseList from "./ExpenseList"
 const Home = () => {
 
   const [AllExpense, setAllExpense] = useState([])
-  const [displayAddExpense,setDisplayAddExpense] = useState(false)
+  const [displayAddExpense, setDisplayAddExpense] = useState(false)
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(AllExpense.length)
-    const data  = localStorage.getItem("AllExpense")
-    if(!data || data === "undefined"){
-      console.log(AllExpense,"2")
+    const data = localStorage.getItem("AllExpense")
+    if (!data || data === "undefined") {
+      console.log(AllExpense, "2")
     }
-    else{
+    else {
       setAllExpense(JSON.parse(localStorage.getItem("AllExpense")))
-        
+
     }
-  },[])
+  }, [])
 
   // Closing the popUp
-  const onClose=()=>{
+  const onClose = () => {
     setDisplayAddExpense(false)
   }
 
-// adding new item by the data received from 
-  const AddNewExpense = (amount, category, subcategory, date,notes) => {
+  // adding new item by the data received from 
+  const AddNewExpense = async (amount, category, subcategory, date, notes) => {
     const newExpense = {
-      id: crypto.randomUUID(),
+      // id: crypto.randomUUID(),
       amount,
       category,
       subcategory,
       date,
       notes
     }
+    await sendData(newExpense)
     console.log(AllExpense)
     const LatestExpense = [...AllExpense, newExpense]
     setAllExpense(LatestExpense)
 
-    localStorage.setItem("AllExpense", JSON.stringify(LatestExpense))
-    
+    // localStorage.setItem("AllExpense", JSON.stringify(LatestExpense))
+
 
   }
 
-  
+  const sendData = async (data) => {
+    try {
+
+      const response = await fetch("http://localhost:3000/expenses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <div className="w-full  border m-auto p-2 overflow-hidden">
       <Dashboard />
-      <div onClick={()=>setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
+      <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
       {displayAddExpense &&
-      <AddExpense AddNewExpense={AddNewExpense} onClose={onClose}/>
+        <AddExpense AddNewExpense={AddNewExpense} onClose={onClose} />
       }
-      <ExpenseList AllExpense ={AllExpense}/>
+      <ExpenseList AllExpense={AllExpense} />
     </div>
   )
 }
