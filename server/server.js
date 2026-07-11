@@ -41,6 +41,13 @@ app.post("/expenses",async (req, res) => {
     res.status(201).json(newExpense);
 })
 
+app.delete("/expenses/:id", async (req,res)=>{
+  const id = Number(req.params.id)
+  const newList = await prisma.expense.delete({where:{id}})
+  console.log(newList)
+   res.status(201).json(newList)
+})
+
 
 app.listen(3000, () => {
     console.log("server is running")
