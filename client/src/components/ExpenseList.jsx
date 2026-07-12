@@ -1,5 +1,5 @@
 
-const ExpenseList = ({ AllExpense }) => {
+const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
 
 
   return (
@@ -32,20 +32,22 @@ const ExpenseList = ({ AllExpense }) => {
                 <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
                   Notes
                 </th>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
+                <th className="px-2 py-1 max-w-[30px] text-left font-semibold border-b border-gray-200">
                   Update
                 </th>
-
+                <th className="px-2 py-1  max-w-[30px] text-left font-semibold border-b border-gray-200">
+                  Delete
+                </th>
               </tr>
 
             </thead>
 
             <tbody className="text-gray-700 text-xs">
-              {AllExpense?.map((item, index) => {
+              {AllExpense?.map((item,index) => {
                 return (
 
                   <tr key={index} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
-                    <td className="px-2 py-1 border-b border-gray-200">{index + 1}</td>
+                    <td className="px-2 py-1 border-b border-gray-200">{index+1}</td>
                     <td className="px-2 py-1 border-b border-gray-200">{item?.category}</td>
                     <td className="px-2 py-1 border-b border-gray-200">{item?.subcategory}</td>
                     <td className="px-2 py-1 border-b border-gray-200 text-right font-medium">
@@ -53,7 +55,8 @@ const ExpenseList = ({ AllExpense }) => {
                     </td>
                     <td className="px-2 py-1 border-b border-gray-200">{item?.date}</td>
                     <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
-                    <td className="px-2 py-1 border-b border-gray-200">📝 ❌</td>
+                    <td className="px-2 py-1 border-b border-gray-200 " onClick={()=>handleUpdate(item.id)}>📝</td>
+                    <td className="px-2 py-1 border-b border-gray-200" onClick={()=>handleDelete(item.id)}>❌</td>
                     {/* <td className="px-2 py-1 border-b border-gray-200"></td> */}
                   </tr>)
               })}
