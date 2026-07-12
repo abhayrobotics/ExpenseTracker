@@ -57,7 +57,7 @@ const Home = () => {
   // get data from database
 
   const fetchExpenses = async () => {
-    const response = await fetch("http://localhost:3000/expenses")
+    const response = await fetch(BASE_URL+ "/expenses")
     const result = await response.json()
     console.log(result)
     setAllExpense(result)
@@ -67,7 +67,7 @@ const Home = () => {
   const sendData = async (data) => {
     try {
 
-      const response = await fetch("http://localhost:3000/expenses", {
+      const response = await fetch(BASE_URL+"/expenses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const Home = () => {
     console.log(id)
     try {
 
-      const response = await fetch("http://localhost:3000/expenses/" + id, {
+      const response = await fetch(BASE_URL+"/expenses/" + id, {
         method: "DELETE"
       })
       const json = await response.json()

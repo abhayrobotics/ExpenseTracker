@@ -21,6 +21,7 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
   const handleAdd = () => {
     if(editFlag){
       console.log(id)
+      setEditFlag(false)
       UpdateExpenseDB(id,amount, category, subcategory, date,notes)
     }
     else{
@@ -44,11 +45,8 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
     setDate(date)
     }
   },[])
-  const EditExpense =()=>{
-    
-    // UpdateExpense(id,amount, category, subcategory, date,notes)
-  }
-
+  
+  
   // handlecategory
   const handlecategory =(e)=>{
     const newCategoySelected = e.target.value
@@ -62,7 +60,8 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
       <div className="w-full max-w-md rounded-2xl bg-white shadow-xl  m-2 ">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-200 px-5 py-2 ">
-          <h2 className="text-lg font-semibold text-gray-800">Add Expense</h2>
+          <h2 className="text-lg font-semibold text-gray-800">
+          {editFlag?"Update Expense":"Add Expense"}</h2>
           <button
             onClick={onClose}
             className="rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
