@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CATEGORY, SUBCATEGORY } from "../storage/constant";
 
-const AddExpense = ({ AddNewExpense, onClose }) => {
+const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) => {
+  const [editFlag,setEditFlag] =useState(false)
+  const [id,setId] =useState("")
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("Grocery");
   const [subcategory, setSubcategory] = useState(SUBCATEGORY[category][0]);
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [notes,setNotes] =useState("")
+  
 
   // setting the max date allowed
   const maxDate = () => {
@@ -16,9 +19,35 @@ const AddExpense = ({ AddNewExpense, onClose }) => {
 
   // calling the parent function to update
   const handleAdd = () => {
-    AddNewExpense(amount, category, subcategory, date,notes);
+    if(editFlag){
+      console.log(id)
+      UpdateExpenseDB(id,amount, category, subcategory, date,notes)
+    }
+    else{
+
+      AddNewExpense(amount, category, subcategory, date,notes);
+    }
     onClose()
   };
+
+  // update the components with new data 
+  useEffect(()=>{
+    // EditableExpense exists then update the value
+    if(Object.values(editableExpense).length>0){
+      setEditFlag(true)
+      const {id,amount,category,subcategory,date,notes} = editableExpense;
+    setId(id)
+    setAmount(amount);
+    setCategory(category)
+    setSubcategory(subcategory)
+    setNotes(notes)
+    setDate(date)
+    }
+  },[])
+  const EditExpense =()=>{
+    
+    // UpdateExpense(id,amount, category, subcategory, date,notes)
+  }
 
   // handlecategory
   const handlecategory =(e)=>{
@@ -29,10 +58,10 @@ const AddExpense = ({ AddNewExpense, onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
-      <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
+    <div className="fixed inset-0 z-50   flex items-center justify-center bg-black/40 px-4">
+      <div className="w-full max-w-md rounded-2xl bg-white shadow-xl  m-2 ">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+        <div className="flex items-center justify-between border-b border-gray-200 px-5 py-2 ">
           <h2 className="text-lg font-semibold text-gray-800">Add Expense</h2>
           <button
             onClick={onClose}
@@ -43,7 +72,7 @@ const AddExpense = ({ AddNewExpense, onClose }) => {
         </div>
 
         {/* Body */}
-        <div className="space-y-4 px-5 py-5">
+        <div className="space-y-2 px-5 py-2">
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Amount
@@ -128,12 +157,13 @@ const AddExpense = ({ AddNewExpense, onClose }) => {
           >
             Cancel
           </button>
-
+           
+          
           <button
             onClick={handleAdd}
             className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
           >
-            Add Expense
+          {editFlag?"Update Expense":"Add Expense"}
           </button>
         </div>
       </div>
