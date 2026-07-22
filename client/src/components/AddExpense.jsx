@@ -20,12 +20,12 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
   // calling the parent function to update
   const handleAdd = () => {
     if(editFlag){
-      console.log(id)
+      console.log(date)
       setEditFlag(false)
       UpdateExpenseDB(id,amount, category, subcategory, date,notes)
     }
     else{
-
+      console.log(date)
       AddNewExpense(amount, category, subcategory, date,notes);
     }
     onClose()
@@ -37,6 +37,7 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
     if(Object.values(editableExpense).length>0){
       setEditFlag(true)
       const {id,amount,category,subcategory,date,notes} = editableExpense;
+      
     setId(id)
     setAmount(amount);
     setCategory(category)
