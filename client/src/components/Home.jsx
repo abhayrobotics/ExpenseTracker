@@ -115,12 +115,14 @@ const Home = () => {
   // updating he DB 
 
   const UpdateExpenseDB = async (id, amount, category, subcategory, date, notes) => {
+    console.log(date)
+    const formatDate = date+"T00:00:00.000Z"
     const updatedExpense = {
       id,
       amount,
       category,
       subcategory,
-      date,
+      date:formatDate,
       notes
     }
     console.log(BASE_URL + "/expenses/" + id)

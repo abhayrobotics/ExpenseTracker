@@ -25,7 +25,7 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
       UpdateExpenseDB(id,amount, category, subcategory, date,notes)
     }
     else{
-      console.log(date)
+      // console.log(date)
       AddNewExpense(amount, category, subcategory, date,notes);
     }
     onClose()
@@ -38,12 +38,13 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
       setEditFlag(true)
       const {id,amount,category,subcategory,date,notes} = editableExpense;
       
+      const formatDate = date.split("T")[0]
     setId(id)
     setAmount(amount);
     setCategory(category)
     setSubcategory(subcategory)
     setNotes(notes)
-    setDate(date)
+    setDate(formatDate)
     }
   },[])
   

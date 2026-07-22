@@ -50,8 +50,8 @@ app.delete("/expenses/:id", async (req, res) => {
 
 app.patch("/expenses/:updateId", async (req, res) => {
   const updateId = Number(req.params.updateId)
-  // const { category, amount, subcategory, notes, date } = req.body;
-
+  const { category, amount, subcategory, notes, date } = req.body;
+  console.log(req.body)
   try {
     const updatedList = await prisma.expense.update({
       where: { id: updateId },
