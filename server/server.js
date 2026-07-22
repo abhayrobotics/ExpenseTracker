@@ -55,7 +55,13 @@ app.patch("/expenses/:updateId", async (req, res) => {
   try {
     const updatedList = await prisma.expense.update({
       where: { id: updateId },
-      data: req.body
+      data: {
+        amount,
+        category,
+        subcategory,
+        notes,
+        date: new Date(date),
+      },
     })
     res.status(200).json(updatedList)
   }

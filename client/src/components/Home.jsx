@@ -47,8 +47,8 @@ const Home = () => {
       notes
     }
     const createdExpense = await sendData(newExpense)
-    
-    setAllExpense((prev)=>[...prev,createdExpense])
+
+    setAllExpense((prev) => [...prev, createdExpense])
 
     // localStorage.setItem("AllExpense", JSON.stringify(LatestExpense))
 
@@ -57,17 +57,23 @@ const Home = () => {
   // get data from database
 
   const fetchExpenses = async () => {
-    const response = await fetch(BASE_URL+ "/expenses")
-    const result = await response.json()
-    console.log(result)
-    setAllExpense(result)
+    try {
+      const response = await fetch(BASE_URL + "/expenses")
+      const result = await response.json()
+      console.log(result)
+      setAllExpense(result)
+    }
+    catch (e) {
+      console.log(e)
+    }
+
   }
 
   // Post request async request
   const sendData = async (data) => {
     try {
 
-      const response = await fetch(BASE_URL+"/expenses", {
+      const response = await fetch(BASE_URL + "/expenses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,12 +94,12 @@ const Home = () => {
     console.log(id)
     try {
 
-      const response = await fetch(BASE_URL+"/expenses/" + id, {
+      const response = await fetch(BASE_URL + "/expenses/" + id, {
         method: "DELETE"
       })
       const json = await response.json()
       console.log(json.id)
-      
+
       const resultList = AllExpense.filter((item) => item.id !== json.id)
       console.log(resultList)
       setAllExpense(resultList)
@@ -116,13 +122,13 @@ const Home = () => {
 
   const UpdateExpenseDB = async (id, amount, category, subcategory, date, notes) => {
     console.log(date)
-    const formatDate = date+"T00:00:00.000Z"
+    // const formatDate = date+"T00:00:00.000Z"
     const updatedExpense = {
       id,
       amount,
       category,
       subcategory,
-      date:formatDate,
+      date,
       notes
     }
     console.log(BASE_URL + "/expenses/" + id)
@@ -144,12 +150,12 @@ const Home = () => {
       console.log(updatedExpenseDB)
 
       // updating me REact UI with updated data
-      setAllExpense((prev)=>{
-        const updatedList  = prev.map((item)=>{
-          if(item.id===id){
+      setAllExpense((prev) => {
+        const updatedList = prev.map((item) => {
+          if (item.id === id) {
             return updatedExpenseDB
           }
-          else{
+          else {
             return item
           }
         })
