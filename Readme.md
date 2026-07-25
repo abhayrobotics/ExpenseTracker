@@ -278,4 +278,17 @@ Building this project as part of my journey toward becoming a Full Stack & AI De
 
 
 ## Bugs
--  date format issue
+
+PATCH date update failed.
+
+Possible Cause:
+Unknown
+
+Environment:
+React + Express + Prisma
+
+Resolved After:
+Server restart / Refresh (suspected)
+
+Status:
+Needs monitoring.
