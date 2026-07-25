@@ -32,10 +32,10 @@ const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
                 <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
                   Notes
                 </th>
-                <th className="px-2 py-1 max-w-[30px] text-left font-semibold border-b border-gray-200">
+                <th className="px-2 py-1 max-w-7.5 text-left font-semibold border-b border-gray-200">
                   Update
                 </th>
-                <th className="px-2 py-1  max-w-[30px] text-left font-semibold border-b border-gray-200">
+                <th className="px-2 py-1  max-w-7.5 text-left font-semibold border-b border-gray-200">
                   Delete
                 </th>
               </tr>
@@ -53,7 +53,7 @@ const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
                     <td className="px-2 py-1 border-b border-gray-200 text-right font-medium">
                       ₹{item?.amount}
                     </td>
-                    <td className="px-2 py-1 border-b border-gray-200">{item?.date}</td>
+                    <td className="px-2 py-1 border-b border-gray-200">{item?.date.split("T")[0]}</td>
                     <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
                     <td className="px-2 py-1 border-b border-gray-200 " onClick={()=>handleUpdate(item.id)}>📝</td>
                     <td className="px-2 py-1 border-b border-gray-200" onClick={()=>handleDelete(item.id)}>❌</td>

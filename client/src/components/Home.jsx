@@ -3,6 +3,7 @@ import AddExpense from "./AddExpense"
 import Dashboard from "./Dashboard"
 import ExpenseList from "./ExpenseList"
 import { BASE_URL } from "../storage/constant"
+import { fetchExpenses } from "../services/expenseServices"
 
 const Home = () => {
 
@@ -14,21 +15,12 @@ const Home = () => {
     // console.log(AllExpense.length)
     try {
 
-      fetchExpenses()
+      loadExpenses()
     }
     catch (e) {
       console.log(e)
     }
 
-    // now data from local storage
-    // const data = localStorage.getItem("AllExpense")
-    // if (!data || data === "undefined") {
-    //   console.log(AllExpense, "2")
-    // }
-    // else {
-    //   setAllExpense(JSON.parse(localStorage.getItem("AllExpense")))
-
-    // }
   }, [])
 
   // Closing the popUp
@@ -37,6 +29,8 @@ const Home = () => {
   }
 
   // adding new item by the data received from 
+
+  const createNewExpense 
   const AddNewExpense = async (amount, category, subcategory, date, notes) => {
     const newExpense = {
       // id: crypto.randomUUID(),
@@ -55,19 +49,17 @@ const Home = () => {
 
   }
   // get data from database
-
-  const fetchExpenses = async () => {
-    try {
-      const response = await fetch(BASE_URL + "/expenses")
-      const result = await response.json()
-      console.log(result)
-      setAllExpense(result)
-    }
-    catch (e) {
-      console.log(e)
-    }
+const loadExpenses = async ()=>{
+  try{
+    const result = await fetchExpenses()
+     setAllExpense(result)
 
   }
+  catch(e){
+    consol.log(e)
+  }
+}
+  
 
   // Post request async request
   const sendData = async (data) => {
