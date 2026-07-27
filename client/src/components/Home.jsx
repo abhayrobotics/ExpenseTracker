@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import AddExpense from "./AddExpense"
 import Dashboard from "./Dashboard"
 import ExpenseList from "./ExpenseList"
-import { BASE_URL } from "../storage/constant"
-import { fetchExpenses } from "../services/expenseServices"
+import { fetchExpenses, createExpense, deleteExpense,updateExpense } from "../services/expenseServices"
 
 const Home = () => {
 
@@ -32,71 +31,50 @@ const Home = () => {
 
  
   const AddNewExpense = async (amount, category, subcategory, date, notes) => {
-    const newExpense = {
-      // id: crypto.randomUUID(),
-      amount,
-      category,
-      subcategory,
-      date,
-      notes
+    try {
+
+      const newExpense = {
+        // id: crypto.randomUUID(),
+        amount,
+        category,
+        subcategory,
+        date,
+        notes
+      }
+      const createdExpense = await createExpense(newExpense)
+
+      setAllExpense((prev) => [...prev, createdExpense])
     }
-    const createdExpense = await sendData(newExpense)
-
-    setAllExpense((prev) => [...prev, createdExpense])
-
-    // localStorage.setItem("AllExpense", JSON.stringify(LatestExpense))
-
+    catch (e) {
+      console.log(e)
+    }    
 
   }
   // get data from database
-const loadExpenses = async ()=>{
-  try{
-    const result = await fetchExpenses()
-     setAllExpense(result)
-
-  }
-  catch(e){
-    consol.log(e)
-  }
-}
-  
-
-  // Post request async request
-  const sendData = async (data) => {
+  const loadExpenses = async () => {
     try {
+      const result = await fetchExpenses()
+      setAllExpense(result)
 
-      const response = await fetch(BASE_URL + "/expenses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const jsonData = await response.json()
-      return jsonData
     }
     catch (e) {
       console.log(e)
     }
   }
 
+
   // delete method called
-  const handleDelete = async (id) => {
-    console.log(id)
-    try {
+  const handleDelete = async (id)=>{
 
-      const response = await fetch(BASE_URL + "/expenses/" + id, {
-        method: "DELETE"
-      })
-      const json = await response.json()
-      console.log(json.id)
-
+    try{
+      // Delete in DB 
+      const json = await deleteExpense(id)
+ 
       const resultList = AllExpense.filter((item) => item.id !== json.id)
       console.log(resultList)
       setAllExpense(resultList)
     }
-    catch (e) {
+    catch(e){
       console.log(e)
     }
   }
@@ -123,22 +101,11 @@ const loadExpenses = async ()=>{
       date,
       notes
     }
-    console.log(BASE_URL + "/expenses/" + id)
+    // console.log(BASE_URL + "/expenses/" + id)
     try {
-      const response = await fetch(BASE_URL + "/expenses/" + id, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedExpense)
-      })
+      
 
-
-      if (!response.ok) {
-        throw new Error("Failed to update expense");
-      }
-
-      const updatedExpenseDB = await response.json();
+      const updatedExpenseDB = await updateExpense(id,updatedExpense);
       console.log(updatedExpenseDB)
 
       // updating me REact UI with updated data
