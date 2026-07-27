@@ -30,7 +30,7 @@ const Home = () => {
 
   // adding new item by the data received from 
 
-  const createNewExpense 
+ 
   const AddNewExpense = async (amount, category, subcategory, date, notes) => {
     const newExpense = {
       // id: crypto.randomUUID(),
