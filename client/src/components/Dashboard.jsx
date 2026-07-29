@@ -9,7 +9,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {/* Balance */}
-        <div className="col-span-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 shadow-sm">
+        <div className="col-span-2 bg-linear-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium opacity-90">Balance</p>
           <h3 className="text-2xl md:text-3xl font-bold mt-2">₹25,000</h3>
           <p className="text-xs mt-2 opacity-80">Available after expenses</p>
