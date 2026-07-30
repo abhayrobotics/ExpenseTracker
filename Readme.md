@@ -119,7 +119,11 @@ Initialize Prisma
 ```bash
 npx prisma init
 ```
+-  JWT
+```bash
+npm install bcrypt jsonwebtoken dotenv
 
+```
 ---
 
 # 🗄 Database Setup
