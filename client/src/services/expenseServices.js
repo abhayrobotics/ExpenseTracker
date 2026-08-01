@@ -77,3 +77,27 @@ export const updateExpense = async (id,updatedExpense) => {
   }
 
 }
+
+export const loginRequest = async (email,password )=>{
+
+    const payload = {
+      email,
+      passwords
+    }
+
+    try{
+      const checkLogin  = fetch(BASE_URL+"/signin", {
+        method:"POST",
+        headers :{
+           "Content-Type": "application/json",
+        },
+        body: payload
+
+      })
+
+      return checkLogin
+    }
+    catch(e){
+      console.log(e)
+    }
+}
