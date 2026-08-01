@@ -18,43 +18,50 @@ app.use(
 
 app.use(express.json());
 
-const authenticateUser =(req,res,next)=>{
-  try{
-
+// JWT middleware
+const authenticateUser = (req, res, next) => {
+  try {
     // get authorization header
-    const authHeader  = req.headers.authorization;
-    if(!authHeader){
-      return res.status(401).json({message:"Not authorized user"})
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ message: "Not authorized user" });
     }
-    const token = authHeader.split(" ")[1]
+    const token = authHeader.split(" ")[1];
 
-    // verify jwt 
-    const payload = jwt.verify(token, process.env.JWT_SECRET)
-    
+    // verify jwt
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    // modify request with jwt payload
     req.user = payload;
-    next()
-    // 
-
-  }
-  catch(e){
+    next();
+    //
+  } catch (e) {
     console.error(e);
     res.status(500).json({
       message: "Internal Server Error",
     });
-
   }
-
-
-}
+};
 
 app.get("/", (req, res) => {
   res.send("Home page");
 });
 
 // read expenses
-app.get("/expenses", async (req, res) => {
-  const expenses = await prisma.expense.findMany();
-  res.json(expenses);
+app.get("/expenses", authenticateUser, async (req, res) => {
+  try {
+    const expenses = await prisma.expense.findMany({
+      where: {
+        userId: req.user.userId,
+      },
+    });
+    res.json(expenses);
+  } catch (e) {
+    console.error(e);
+
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
 });
 
 // signup
@@ -79,6 +86,7 @@ app.post("/signup", async (req, res) => {
         name,
         email,
         password: hashedPassword,
+        userId: req.user.userId,
       },
     });
     res.status(200).json({
@@ -96,7 +104,7 @@ app.post("/signup", async (req, res) => {
 app.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    // verify email and password
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -140,7 +148,7 @@ app.post("/signin", async (req, res) => {
 });
 
 // create a expense
-app.post("/expenses", async (req, res) => {
+app.post("/expenses", authenticateUser, async (req, res) => {
   const { category, amount, subcategory, notes, date } = req.body;
 
   const newExpense = await prisma.expense.create({
@@ -150,14 +158,16 @@ app.post("/expenses", async (req, res) => {
       subcategory,
       notes,
       date: new Date(date),
+      userId: req.user.userId,
     },
   });
   res.status(201).json(newExpense);
 });
 
 // delete a expense
-app.delete("/expenses/:id", async (req, res) => {
+app.delete("/expenses/:id", authenticateUser, async (req, res) => {
   const id = Number(req.params.id);
+
   const newList = await prisma.expense.delete({ where: { id } });
   console.log(newList);
   res.status(201).json(newList);
