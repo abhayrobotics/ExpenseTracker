@@ -41,7 +41,8 @@ const Home = () => {
         date,
         notes
       }
-      const createdExpense = await createExpense(newExpense)
+      const token  = localStorage.getItem("token")
+      const createdExpense = await createExpense(newExpense,token)
 
       setAllExpense((prev) => [...prev, createdExpense])
     }

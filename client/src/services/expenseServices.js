@@ -16,12 +16,14 @@ export const fetchExpenses = async () => {
 }
 
 // create, send data to DB
-export const createExpense = async (data) => {
+export const createExpense = async (data,token) => {
   try {
 
     const response = await fetch(BASE_URL + "/expenses", {
       method: "POST",
+     
       headers: {
+         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),

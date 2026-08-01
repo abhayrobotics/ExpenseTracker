@@ -80,7 +80,7 @@ app.post("/signup", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    console.log("done")
     const user = await prisma.user.create({
       data: {
         name,
@@ -130,6 +130,8 @@ app.post("/signin", async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
+    
+    
 
     res.status(200).json({
       token,
