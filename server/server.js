@@ -86,7 +86,7 @@ app.post("/signup", async (req, res) => {
         name,
         email,
         password: hashedPassword,
-        userId: req.user.userId,
+       
       },
     });
     res.status(200).json({
