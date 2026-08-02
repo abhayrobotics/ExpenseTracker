@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type"],
+    allowedHeaders: ["Content-Type","Authorization"],
   }),
 );
 
@@ -47,13 +47,14 @@ app.get("/", (req, res) => {
 });
 
 // read expenses
-app.get("/expenses", authenticateUser, async (req, res) => {
+app.get("/expenses",authenticateUser, async (req, res) => {
   try {
     const expenses = await prisma.expense.findMany({
       where: {
         userId: req.user.userId,
       },
     });
+   console.log(expenses)
     res.json(expenses);
   } catch (e) {
     console.error(e);

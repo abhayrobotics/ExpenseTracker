@@ -2,11 +2,23 @@ import { BASE_URL } from "../storage/constant"
 
 
 // fetch all expenses from DB
-export const fetchExpenses = async () => {
+export const fetchExpenses = async (token) => {
   try {
-    const response = await fetch(BASE_URL + "/expenses")
-    return await response.json()
-    // console.log(result)
+    console.log(token)
+    const response = await fetch(BASE_URL + "/expenses",{
+      method: "GET",
+      
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+    
+  )
+  console.log(response.status)
+    const result = await response.json()
+    console.log(result)
+    return result
 
   }
   catch (e) {
@@ -77,25 +89,27 @@ export const updateExpense = async (id,updatedExpense) => {
   }
 
 }
-
+// Signin attempt and validation from server
 export const loginRequest = async (email,password )=>{
 
     const payload = {
       email,
-      passwords
+      password
     }
 
     try{
-      const checkLogin  = fetch(BASE_URL+"/signin", {
+      const checkLogin  = await fetch(BASE_URL+"/signin", {
         method:"POST",
         headers :{
            "Content-Type": "application/json",
         },
-        body: payload
+        body: JSON.stringify(payload)
 
       })
-
-      return checkLogin
+      
+      const result = await checkLogin.json();
+      console.log(result)
+      return result;
     }
     catch(e){
       console.log(e)
