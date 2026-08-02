@@ -71,11 +71,12 @@ export const deleteExpense = async (id,token) => {
 }
 
 // Update request with id and updatedExpense
-export const updateExpense = async (id,updatedExpense) => {
+export const updateExpense = async (id,updatedExpense,token) => {
   try {
     const response = await fetch(BASE_URL + "/expenses/" + id, {
       method: "PATCH",
       headers: {
+         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedExpense)

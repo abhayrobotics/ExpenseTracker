@@ -115,31 +115,31 @@ const Home = () => {
     }
     // console.log(BASE_URL + "/expenses/" + id)
     try {
+      if (!!localStorage.getItem("token")) {
 
+        const token = localStorage.getItem("token")
 
-      const updatedExpenseDB = await updateExpense(id, updatedExpense);
-      console.log(updatedExpenseDB)
+        const updatedExpenseDB = await updateExpense(id, updatedExpense, token);
+        console.log(updatedExpenseDB)
 
-      // updating me REact UI with updated data
-      setAllExpense((prev) => {
-        const updatedList = prev.map((item) => {
-          if (item.id === id) {
-            return updatedExpenseDB
-          }
-          else {
-            return item
-          }
+        // updating me REact UI with updated data
+        setAllExpense((prev) => {
+          const updatedList = prev.map((item) => {
+            if (item.id === id) {
+              return updatedExpenseDB
+            }
+            else {
+              return item
+            }
+          })
+          return updatedList
         })
-        return updatedList
-      })
+      }
     }
     catch (e) {
       console.log(e)
     }
-    // confirm sign in from child
-    const SignInStatus = (status) => {
-      setIsSignIn(status)
-    }
+    
 
   }
   // confirm sign in from child
