@@ -9,7 +9,7 @@ const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
       </h2>
       {AllExpense.length === 0 ? "Add your first expense to start tracking"
         :
-        <div className="overflow-x-hidden rounded-xl border border-gray-200">
+        <div className="scrollbar-thumb-purple-700 scrollbar-track-sky-100 overflow-auto  rounded-xl border border-gray-200">
           <table className="min-w-full border-collapse text-sm ">
             <thead className="bg-amber-50 text-amber-800">
 

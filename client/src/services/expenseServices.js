@@ -4,7 +4,7 @@ import { BASE_URL } from "../storage/constant"
 // fetch all expenses from DB
 export const fetchExpenses = async (token) => {
   try {
-    console.log(token)
+    // console.log(token)
     const response = await fetch(BASE_URL + "/expenses", {
       method: "GET",
 
@@ -15,9 +15,9 @@ export const fetchExpenses = async (token) => {
     }
 
     )
-    console.log(response.status)
+    // console.log(response.status)
     const result = await response.json()
-    console.log(result)
+    // console.log(result)
     return result
 
   }
@@ -113,7 +113,7 @@ export const loginRequest = async (email, password) => {
     })
 
     const result = await checkLogin.json();
-    console.log(result)
+    // console.log(result)
     return result;
   }
   catch (e) {

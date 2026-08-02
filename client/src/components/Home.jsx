@@ -12,17 +12,20 @@ const Home = () => {
   const [displayAddExpense, setDisplayAddExpense] = useState(false)
   const [editableExpense, setEditableExpense] = useState({})
 
+  // const [totalSpend,setTotalSpend] = useState(0)
+
   useEffect(() => {
     // console.log(AllExpense.length)
-    try {
 
-      loadExpenses()
-    }
-    catch (e) {
-      console.log(e)
-    }
-
+    loadExpenses()
   }, [])
+
+
+  const totalSpendNow = AllExpense.reduce((sum, item) => sum + item.amount, 0)
+
+  // console.log(totalSpendNow)
+
+
 
   // Closing the popUp
   const onClose = () => {
@@ -60,7 +63,7 @@ const Home = () => {
 
         const token = localStorage.getItem("token")
         const result = await fetchExpenses(token)
-        console.log(result)
+        // console.log(result)
         setAllExpense(result)
       }
 
@@ -139,7 +142,7 @@ const Home = () => {
     catch (e) {
       console.log(e)
     }
-    
+
 
   }
   // confirm sign in from child
@@ -149,7 +152,7 @@ const Home = () => {
   return (
     <div className="w-full  border m-auto p-2 overflow-hidden">
 
-      <Dashboard />
+      <Dashboard totalSpendNow={totalSpendNow} />
       <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
       {displayAddExpense &&
         <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />

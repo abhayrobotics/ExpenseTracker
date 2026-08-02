@@ -1,4 +1,4 @@
-const Dashboard = () => {
+const Dashboard = ({totalSpendNow}) => {
   return (
     <div className="bg-white rounded-2xl shadow-md p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
@@ -11,7 +11,7 @@ const Dashboard = () => {
         {/* Balance */}
         <div className="col-span-2 bg-linear-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium opacity-90">Balance</p>
-          <h3 className="text-2xl md:text-3xl font-bold mt-2">₹25,000</h3>
+          <h3 className="text-2xl md:text-3xl font-bold mt-2">₹{60000- totalSpendNow }</h3>
           <p className="text-xs mt-2 opacity-80">Available after expenses</p>
         </div>
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
         <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium text-rose-700">Total Spend</p>
           <h3 className="text-xl md:text-2xl font-bold text-rose-800 mt-2">
-            ₹18,500
+            ₹{totalSpendNow}
           </h3>
           <p className="text-xs text-rose-600 mt-2">Spent this month</p>
         </div>
