@@ -171,9 +171,19 @@ app.post("/expenses", authenticateUser, async (req, res) => {
 app.delete("/expenses/:id", authenticateUser, async (req, res) => {
   const id = Number(req.params.id);
 
-  const newList = await prisma.expense.delete({ where: { id } });
+  const newList = await prisma.expense.deleteMany({ where: { id ,
+    userId: req.user.userId,
+  } });
+  if (newList.count === 0) {
+    return res.status(404).json({
+        message: "Expense not found",
+    });
+}
   console.log(newList);
-  res.status(201).json(newList);
+  return res.status(200).json({
+    message: "Expense deleted successfully",
+    count: newList.count,
+});
 });
 
 // update a expense

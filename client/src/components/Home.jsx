@@ -56,7 +56,7 @@ const Home = () => {
   // get data from database
   const loadExpenses = async () => {
     try {
-      if(localStorage.getItem("token")){
+      if (localStorage.getItem("token")) {
 
         const token = localStorage.getItem("token")
         const result = await fetchExpenses(token)
@@ -76,11 +76,15 @@ const Home = () => {
 
     try {
       // Delete in DB 
-      const json = await deleteExpense(id)
+      const token = localStorage.getItem("token")
+      const json = await deleteExpense(id, token)
 
-      const resultList = AllExpense.filter((item) => item.id !== json.id)
-      console.log(resultList)
-      setAllExpense(resultList)
+      if (json.count === 1) {
+        setAllExpense(prev =>
+          prev.filter(item => item.id !== id)
+        );
+
+      }
     }
     catch (e) {
       console.log(e)

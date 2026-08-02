@@ -50,12 +50,16 @@ export const createExpense = async (data,token) => {
 }
 
 // Delete requesto with ID
-export const deleteExpense = async (id) => {
+export const deleteExpense = async (id,token) => {
   console.log(id)
   try {
 
     const response = await fetch(BASE_URL + "/expenses/" + id, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     })
     return await response.json()
 
