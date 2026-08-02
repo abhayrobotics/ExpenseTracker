@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type","Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 
@@ -41,20 +41,25 @@ const authenticateUser = (req, res, next) => {
     });
   }
 };
-
-app.get("/", (req, res) => {
-  res.send("Home page");
+app.get("/",(req,res)=>{
+  res.send("Homepage")
+})
+app.get("/auth", authenticateUser, (req, res) => {
+  if (req.user.userId) {
+    return res.json({ isUserLoggedIn: true })
+  }
+  return res.json({ isUserLoggedIn: false })
 });
 
 // read expenses
-app.get("/expenses",authenticateUser, async (req, res) => {
+app.get("/expenses", authenticateUser, async (req, res) => {
   try {
     const expenses = await prisma.expense.findMany({
       where: {
         userId: req.user.userId,
       },
     });
-   console.log(expenses)
+    console.log(expenses)
     res.json(expenses);
   } catch (e) {
     console.error(e);
@@ -87,7 +92,7 @@ app.post("/signup", async (req, res) => {
         name,
         email,
         password: hashedPassword,
-       
+
       },
     });
     res.status(200).json({
@@ -131,8 +136,8 @@ app.post("/signin", async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    
-    
+
+
 
     res.status(200).json({
       token,
@@ -171,19 +176,22 @@ app.post("/expenses", authenticateUser, async (req, res) => {
 app.delete("/expenses/:id", authenticateUser, async (req, res) => {
   const id = Number(req.params.id);
 
-  const newList = await prisma.expense.deleteMany({ where: { id ,
-    userId: req.user.userId,
-  } });
+  const newList = await prisma.expense.deleteMany({
+    where: {
+      id,
+      userId: req.user.userId,
+    }
+  });
   if (newList.count === 0) {
     return res.status(404).json({
-        message: "Expense not found",
+      message: "Expense not found",
     });
-}
+  }
   console.log(newList);
   return res.status(200).json({
     message: "Expense deleted successfully",
     count: newList.count,
-});
+  });
 });
 
 // update a expense

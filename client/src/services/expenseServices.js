@@ -119,3 +119,22 @@ export const loginRequest = async (email,password )=>{
       console.log(e)
     }
 }
+
+// verify that toekn present belongs toactive logged in user
+export const authencicateUser =async(token)=>{
+
+  const response =await  fetch(BASE_URL+"/auth",{
+    method:"GET",
+    headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+  })
+  if (!response.ok) {
+    return false;
+}
+  const result  = await response.json()
+console.log(result.isUserLoggedIn)
+  return result.isUserLoggedIn
+
+}
