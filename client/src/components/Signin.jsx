@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { loginRequest } from "../services/expenseServices";
+import { loginRequest, signUpRequest } from "../services/expenseServices";
 import { Wallet } from "lucide-react";
+import { BASE_URL } from "../storage/constant";
 
 const Signin = ({ signInStatus }) => {
-    const [name,setName] = useState("")
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [showSignin,setShowSignin] = useState(false)
-    
-    const submitHandler = async () => {
+    const [showSignin, setShowSignin] = useState(false)
+
+    const signInHandler = async () => {
         try {
             const isLogin = await loginRequest(email, password);
 
@@ -24,6 +25,19 @@ const Signin = ({ signInStatus }) => {
             console.log(e);
         }
     };
+
+    const SignUpHandler = async()=>{
+        try{
+            console.log("signup try")
+            const result  = await signUpRequest(name,email,password);
+            
+            console.log(result)
+        }
+        catch(e){
+
+        }
+
+    }
 
     return (
         <div className="h-dvh overflow-hidden flex items-center justify-center bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100 px-4">
@@ -46,20 +60,20 @@ const Signin = ({ signInStatus }) => {
                     </p>
                 </div>
                 {/* name */}
-                {showSignin ? 
-                <div className="mb-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Name
-                    </label>
+                {showSignin ? <></>:
+                    <div className="mb-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Name
+                        </label>
 
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Enter your Name"
-                        className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
-                    />
-                </div>:<></>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Enter your Name"
+                            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
+                        />
+                    </div> 
                 }
                 {/* Email */}
                 <div className="mb-2">
@@ -92,19 +106,27 @@ const Signin = ({ signInStatus }) => {
                 </div>
 
                 {/* Button */}
-                <button
-                    onClick={submitHandler}
-                    className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer active:scale-[0.98] transition text-white font-semibold py-3 rounded-xl shadow-lg"
-                >
-                    { showSignin?"Sign Up": "Sign In" }
-                </button>
+                {showSignin ?
+                    <button
+                        onClick={signInHandler}
+                        className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer active:scale-[0.98] transition text-white font-semibold py-3 rounded-xl shadow-lg"
+                    >
+                        Sign In 
+                    </button> :
+                    <button
+                        onClick={SignUpHandler}
+                        className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer active:scale-[0.98] transition text-white font-semibold py-3 rounded-xl shadow-lg"
+                    >
+                        Sign Up
+                    </button>
+                }
                 <div className="mt-6 text-center text-gray-600">
                     <span>Don't have an account? </span>
 
                     <button
-                        className="text-purple-700 font-semibold hover:underline" onClick={()=>setShowSignin(!showSignin)}
+                        className="text-purple-700 font-semibold hover:underline" onClick={() => setShowSignin(!showSignin)}
                     >
-                       { showSignin? "Sign In": "Sign Up"}
+                        {showSignin ?  "Sign Up": "Sign In"}
                     </button>
                 </div>
             </div>

@@ -5,17 +5,17 @@ import { BASE_URL } from "../storage/constant"
 export const fetchExpenses = async (token) => {
   try {
     console.log(token)
-    const response = await fetch(BASE_URL + "/expenses",{
+    const response = await fetch(BASE_URL + "/expenses", {
       method: "GET",
-      
+
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     }
-    
-  )
-  console.log(response.status)
+
+    )
+    console.log(response.status)
     const result = await response.json()
     console.log(result)
     return result
@@ -28,14 +28,14 @@ export const fetchExpenses = async (token) => {
 }
 
 // create, send data to DB
-export const createExpense = async (data,token) => {
+export const createExpense = async (data, token) => {
   try {
 
     const response = await fetch(BASE_URL + "/expenses", {
       method: "POST",
-     
+
       headers: {
-         Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
@@ -50,7 +50,7 @@ export const createExpense = async (data,token) => {
 }
 
 // Delete requesto with ID
-export const deleteExpense = async (id,token) => {
+export const deleteExpense = async (id, token) => {
   console.log(id)
   try {
 
@@ -71,12 +71,12 @@ export const deleteExpense = async (id,token) => {
 }
 
 // Update request with id and updatedExpense
-export const updateExpense = async (id,updatedExpense,token) => {
+export const updateExpense = async (id, updatedExpense, token) => {
   try {
     const response = await fetch(BASE_URL + "/expenses/" + id, {
       method: "PATCH",
       headers: {
-         Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedExpense)
@@ -95,47 +95,69 @@ export const updateExpense = async (id,updatedExpense,token) => {
 
 }
 // Signin attempt and validation from server
-export const loginRequest = async (email,password )=>{
+export const loginRequest = async (email, password) => {
 
-    const payload = {
-      email,
-      password
-    }
+  const payload = {
+    email,
+    password
+  }
 
-    try{
-      const checkLogin  = await fetch(BASE_URL+"/signin", {
-        method:"POST",
-        headers :{
-           "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload)
+  try {
+    const checkLogin = await fetch(BASE_URL + "/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
 
-      })
-      
-      const result = await checkLogin.json();
-      console.log(result)
-      return result;
-    }
-    catch(e){
-      console.log(e)
-    }
+    })
+
+    const result = await checkLogin.json();
+    console.log(result)
+    return result;
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+
+// signu
+export const signUpRequest = async (name,email,password) => {
+  const payload ={
+    name,
+    email,
+    password
+  }
+  console.log("signUpRequest",payload)
+  const response = await fetch(BASE_URL + "/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload)
+
+
+  })
+  const result = await response.json()
+  console.log(result)
+  return result
 }
 
 // verify that toekn present belongs toactive logged in user
-export const authencicateUser =async(token)=>{
+export const authencicateUser = async (token) => {
 
-  const response =await  fetch(BASE_URL+"/auth",{
-    method:"GET",
+  const response = await fetch(BASE_URL + "/auth", {
+    method: "GET",
     headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   })
   if (!response.ok) {
     return false;
-}
-  const result  = await response.json()
-console.log(result.isUserLoggedIn)
+  }
+  const result = await response.json()
+  console.log(result.isUserLoggedIn)
   return result.isUserLoggedIn
 
 }
