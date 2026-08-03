@@ -1,4 +1,4 @@
-
+import { SquarePen,Trash2 } from "lucide-react";
 const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
 
 
@@ -14,13 +14,13 @@ const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
             <thead className="bg-amber-50 text-amber-800">
 
               <tr>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
+                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200 text-nowrap">
                   Sl no.
                 </th>
                 <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
                   Category
                 </th>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
+                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200 text-nowrap">
                   Sub Category
                 </th>
                 <th className="px-2 py-1 text-right font-semibold border-b border-gray-200">
@@ -33,10 +33,9 @@ const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
                   Notes
                 </th>
                 <th className="px-2 py-1 max-w-7.5 text-left font-semibold border-b border-gray-200">
-                  📝
                 </th>
                 <th className="px-2 py-1  max-w-7.5 text-left font-semibold border-b border-gray-200">
-                  ❌
+                
                 </th>
               </tr>
 
@@ -53,10 +52,12 @@ const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
                     <td className="px-2 py-1 border-b border-gray-200 text-right font-medium">
                       ₹{item?.amount}
                     </td>
-                    <td className="px-2 py-1 border-b border-gray-200">{item?.date.split("T")[0]}</td>
+                    <td className="px-2 py-1 border-b border-gray-200  text-nowrap ">{item?.date.split("T")[0]}</td>
                     <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
-                    <td className="px-2 py-1 border-b border-gray-200 " onClick={()=>handleUpdate(item.id)}>📝</td>
-                    <td className="px-2 py-1 border-b border-gray-200" onClick={()=>handleDelete(item.id)}>❌</td>
+                    <td className="px-2 py-1 border-b border-gray-200 " onClick={()=>handleUpdate(item.id)}>
+                  <SquarePen size={18} className="text-purple-500 hover:text-purple-700 cursor-pointer" /></td>
+                    <td className="px-2 py-1 border-b border-gray-200" onClick={()=>handleDelete(item.id)}>
+                  <Trash2 size={18} className="text-purple-500 hover:text-red-700 cursor-pointer" /></td>
                     {/* <td className="px-2 py-1 border-b border-gray-200"></td> */}
                   </tr>)
               })}
