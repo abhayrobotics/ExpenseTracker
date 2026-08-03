@@ -1,9 +1,14 @@
-const Dashboard = ({totalSpendNow}) => {
+const Dashboard = ({dashboard_data}) => {
+
+  const {totalSpendNow,TotalSavings,Grocery,LifeStyle}= dashboard_data
   return (
     <div className="bg-white rounded-2xl shadow-md p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg md:text-xl font-semibold text-gray-800">
           Dashboard
+        </h2>
+        <h2 className="text-lg md:text-xl font-semibold text-gray-800" onClick={}>
+          Logout
         </h2>
       </div>
 
@@ -26,27 +31,27 @@ const Dashboard = ({totalSpendNow}) => {
 
         {/* Savings */}
         <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 shadow-sm">
-          <p className="text-sm font-medium text-blue-700">Savings</p>
+          <p className="text-sm font-medium text-blue-700">Total Savings</p>
           <h3 className="text-xl md:text-2xl font-bold text-blue-800 mt-2">
-            ₹6,500
+            ₹{TotalSavings}
           </h3>
           <p className="text-xs text-blue-600 mt-2">Set aside this month</p>
         </div>
 
         {/* Need */}
         <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 shadow-sm">
-          <p className="text-sm font-medium text-amber-700">Need</p>
+          <p className="text-sm font-medium text-amber-700">Grocery</p>
           <h3 className="text-xl md:text-2xl font-bold text-amber-800 mt-2">
-            ₹12,000
+            ₹ {Grocery}
           </h3>
           <p className="text-xs text-amber-600 mt-2">Essentials</p>
         </div>
 
         {/* Want */}
         <div className="bg-fuchsia-50 border border-fuchsia-100 rounded-2xl p-4 shadow-sm">
-          <p className="text-sm font-medium text-fuchsia-700">Want</p>
+          <p className="text-sm font-medium text-fuchsia-700">LifeStyle</p>
           <h3 className="text-xl md:text-2xl font-bold text-fuchsia-800 mt-2">
-            ₹4,000
+            ₹ {LifeStyle}
           </h3>
           <p className="text-xs text-fuchsia-600 mt-2">Non-essential spends</p>
         </div>

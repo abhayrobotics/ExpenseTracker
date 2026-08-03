@@ -3,6 +3,8 @@ export const BASE_URL = "http://localhost:3000";
 
 export const CATEGORY = [
   "Grocery",
+  "Savings",
+  "LifeStyle",
   "House Rent",
   "Parent Expense",
   "Credit Card Bill",
@@ -15,8 +17,29 @@ export const CATEGORY = [
   "Medicine",
   "Recharge",
   "Transport",
+  "Shopping",
+  
 ]
 export const SUBCATEGORY = {
+  "Savings":[
+    "Recurring Deposit",
+    "Fixed Deposit",
+    "SIP",
+    "Stocks",
+    "PPF contribution",
+    "Piggy Bank"
+  ],
+  "LifeStyle" : [
+  "Shopping",
+  "Leisure",
+  "Dining Out",
+  "Travel",
+  "Entertainment",
+  "Movies",
+  "Coffee",
+  "Electronics",
+],
+  
   "House Rent": [
     "Monthly Rent",
     "Maintenance",
@@ -117,6 +140,12 @@ export const SUBCATEGORY = {
     "Fuel",
     "Parking",
     "Bike Service"
+  ],
+  "Shopping":[
+    "Clothes",
+    "Cosmetics",
+    "Gifting",
+    "Home Decor"
   ]
 };
 

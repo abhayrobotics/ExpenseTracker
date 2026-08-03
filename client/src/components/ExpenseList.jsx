@@ -33,10 +33,10 @@ const ExpenseList = ({ AllExpense ,handleDelete, handleUpdate}) => {
                   Notes
                 </th>
                 <th className="px-2 py-1 max-w-7.5 text-left font-semibold border-b border-gray-200">
-                  Update
+                  📝
                 </th>
                 <th className="px-2 py-1  max-w-7.5 text-left font-semibold border-b border-gray-200">
-                  Delete
+                  ❌
                 </th>
               </tr>
 

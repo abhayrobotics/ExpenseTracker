@@ -4,7 +4,7 @@ import { CATEGORY, SUBCATEGORY } from "../storage/constant";
 const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) => {
   const [editFlag,setEditFlag] =useState(false)
   const [id,setId] =useState("")
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(null);
   const [category, setCategory] = useState("Grocery");
   const [subcategory, setSubcategory] = useState(SUBCATEGORY[category][0]);
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -145,7 +145,7 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
               max={maxDate()}
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+              className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 "
             />
           </div>
         </div>

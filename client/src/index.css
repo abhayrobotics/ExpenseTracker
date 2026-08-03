@@ -53,6 +53,11 @@
 body {
   margin: 0;
 }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  cursor: pointer;
+  filter: contrast(2) brightness(0.4);
+}
 /* 
 #root {
   width: 1126px;
