@@ -29,10 +29,15 @@ function App() {
     }
   }
 
+  const handleLogout =()=>{
+    localStorage.removeItem("token")
+    setIsAuthenticated(false)
+  }
+
   return (
     <>
       {isAuthenticated ?
-        <Home /> :
+        <Home handleLogout={handleLogout} /> :
         <Signin signInStatus={setIsAuthenticated} />
       }
     </>

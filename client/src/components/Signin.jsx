@@ -8,7 +8,7 @@ const Signin = ({ signInStatus }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [showSignin, setShowSignin] = useState(false)
+    const [showSignin, setShowSignin] = useState(true)
 
     const signInHandler = async () => {
         try {
