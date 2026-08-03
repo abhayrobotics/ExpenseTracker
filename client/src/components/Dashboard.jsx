@@ -1,3 +1,5 @@
+import { ShoppingBasket } from "lucide-react";
+
 const Dashboard = ({dashboard_data, handleLogout}) => {
 
   const {totalSpendNow,TotalSavings,Grocery,LifeStyle}= dashboard_data;
@@ -42,7 +44,7 @@ const Dashboard = ({dashboard_data, handleLogout}) => {
 
         {/* Need */}
         <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 shadow-sm">
-          <p className="text-sm font-medium text-amber-700">Grocery</p>
+          <p className="text-sm font-medium text-amber-700">Grocery </p> 
           <h3 className="text-xl md:text-2xl font-bold text-amber-800 mt-2">
             ₹ {Grocery}
           </h3>
