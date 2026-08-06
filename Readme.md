@@ -283,16 +283,9 @@ Building this project as part of my journey toward becoming a Full Stack & AI De
 
 ## Bugs
 
-PATCH date update failed.
-
-Possible Cause:
-Unknown
-
-Environment:
-React + Express + Prisma
-
-Resolved After:
-Server restart / Refresh (suspected)
-
-Status:
-Needs monitoring.
+-  signin sometime late
+-  update from same account does not show in the UI, until not refreshed
+-  border is not consitent color
+-  if no items are added, the website does not take full length
+-  create a back up data file for server
+-  currently the deployment updates with the last commit , pause it with github tags
