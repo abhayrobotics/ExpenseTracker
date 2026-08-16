@@ -113,7 +113,7 @@ export const loginRequest = async (email, password) => {
     })
 
     const result = await checkLogin.json();
-    // console.log(result)
+    console.log(result)
     return result;
   }
   catch (e) {
