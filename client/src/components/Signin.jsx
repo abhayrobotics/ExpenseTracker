@@ -31,6 +31,8 @@ const Signin = ({ signInStatus }) => {
             }
         } catch (e) {
             console.log(e);
+            
+
         }
     };
 

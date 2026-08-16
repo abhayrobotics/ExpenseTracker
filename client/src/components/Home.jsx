@@ -13,7 +13,7 @@ const Home = ({ handleLogout }) => {
   const [displayAddExpense, setDisplayAddExpense] = useState(false)
   const [editableExpense, setEditableExpense] = useState({})
   const [errorMessage, setErrorMessage] = useState("")
-  const [showErrorPage, setShowErrorPage] = useState(false)
+  const [showErrorPage, setShowErrorPage] = useState({status:false,retryAction:null})
   // const [totalSpend,setTotalSpend] = useState(0)
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Home = ({ handleLogout }) => {
 
   const AddNewExpense = async (amount, category, subcategory, date, notes) => {
     try {
-
+      console.log("retrying")
       const newExpense = {
         // id: crypto.randomUUID(),
         amount,
@@ -61,10 +61,14 @@ const Home = ({ handleLogout }) => {
       const createdExpense = await createExpense(newExpense, token)
 
       setAllExpense((prev) => [...prev, createdExpense])
+      setShowErrorPage({status:false})
     }
     catch (e) {
-      console.log(e)
-       setShowErrorPage(true)
+      console.log(e,"retry")
+       setShowErrorPage({
+        status:true,
+        retryAction: ()=>AddNewExpense(amount, category, subcategory, date, notes)
+      })
 
     }
 
@@ -78,12 +82,19 @@ const Home = ({ handleLogout }) => {
         const result = await fetchExpenses(token)
         // console.log(result)
         setAllExpense(result)
+
+        
+          setShowErrorPage({status:false})
       }
 
     }
     catch (e) {
-      console.log(e)
-      setShowErrorPage(true)
+      console.log(e,"retry")
+      // retry database error page
+      setShowErrorPage({
+        status:true,
+        retryAction: ()=>loadExpenses()
+      })
     }
   }
 
@@ -100,11 +111,15 @@ const Home = ({ handleLogout }) => {
         setAllExpense(prev =>
           prev.filter(item => item.id !== id)
         );
-
+        setShowErrorPage({status:false})
       }
     }
     catch (e) {
       console.log(e)
+      setShowErrorPage({
+        status:true,
+        retryAction: ()=>handleDelete(id)
+      })
     }
   }
 
@@ -157,11 +172,17 @@ const Home = ({ handleLogout }) => {
             })
             return updatedList
           })
+          setShowErrorPage({status:false})
         }
       }
     }
     catch (e) {
       console.log(e)
+      // retry database error page
+      setShowErrorPage({
+        status:true,
+        retryAction: ()=>UpdateExpenseDB(id, amount, category, subcategory, date, notes)
+      })
     }
 
 
@@ -172,7 +193,7 @@ const Home = ({ handleLogout }) => {
   }
   return (
     <div className="w-full bg-white min-h-screen border m-auto p-2 overflow-hidden">
-      {showErrorPage ? <DatabaseError /> :
+      {showErrorPage?.status ? <DatabaseError retryAction={showErrorPage?.retryAction} /> :
 
         <div>
           <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} />

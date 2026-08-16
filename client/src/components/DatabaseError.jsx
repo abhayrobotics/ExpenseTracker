@@ -1,6 +1,8 @@
 import { Database, RefreshCw, ArrowLeft } from "lucide-react";
 
-const DatabaseError = ({ onRetry }) => {
+const DatabaseError = ({ retryAction }) => {
+
+  
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-6 text-content">
       <div className="w-full max-w-lg text-center">
@@ -42,7 +44,7 @@ const DatabaseError = ({ onRetry }) => {
         {/* Buttons */}
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <button
-            onClick={onRetry}
+            onClick={retryAction}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-semibold text-background shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0"
           >
             <RefreshCw size={18} />

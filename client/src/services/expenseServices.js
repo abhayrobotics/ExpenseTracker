@@ -47,8 +47,8 @@ export const createExpense = async (data, token) => {
   }
   catch (e) {
     console.log(e)
-     throw e
-    
+    throw e
+
   }
 }
 
@@ -70,6 +70,7 @@ export const deleteExpense = async (id, token) => {
   }
   catch (e) {
     console.log(e)
+    throw e
   }
 }
 
@@ -89,13 +90,14 @@ export const updateExpense = async (id, updatedExpense, token) => {
     if (!response.ok) {
       throw new Error("Failed to update expense");
 
-      return await response.json({message:"Failed to update expense"})
+      return await response.json({ message: "Failed to update expense" })
     }
 
     return await response.json();
   }
   catch (e) {
     console.log(e)
+    throw e
   }
 
 }
@@ -123,33 +125,43 @@ export const loginRequest = async (email, password) => {
   }
   catch (e) {
     console.log(e)
+    throw e
   }
 }
 
 // signu
-export const signUpRequest = async (name,email,password) => {
-  const payload ={
-    name,
-    email,
-    password
+export const signUpRequest = async (name, email, password) => {
+  try {
+
+
+    const payload = {
+      name,
+      email,
+      password
+    }
+    console.log("signUpRequest", payload)
+    const response = await fetch(BASE_URL + "/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
+
+
+    })
+    const result = await response.json()
+    console.log(result)
+    return result
+  } catch (e) {
+    console.log(e)
+    throw e
   }
-  console.log("signUpRequest",payload)
-  const response = await fetch(BASE_URL + "/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload)
-
-
-  })
-  const result = await response.json()
-  console.log(result)
-  return result
 }
 
 // verify that toekn present belongs toactive logged in user
 export const authencicateUser = async (token) => {
+
+  try{
 
   const response = await fetch(BASE_URL + "/auth", {
     method: "GET",
@@ -164,5 +176,9 @@ export const authencicateUser = async (token) => {
   const result = await response.json()
   console.log(result.isUserLoggedIn)
   return result.isUserLoggedIn
+  
+  }catch(e){
+   console.log(e) 
+  }
 
 }
