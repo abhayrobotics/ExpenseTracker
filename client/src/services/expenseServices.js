@@ -23,6 +23,7 @@ export const fetchExpenses = async (token) => {
   }
   catch (e) {
     console.log(e)
+    throw e
   }
 
 }
@@ -46,6 +47,8 @@ export const createExpense = async (data, token) => {
   }
   catch (e) {
     console.log(e)
+     throw e
+    
   }
 }
 
@@ -85,6 +88,8 @@ export const updateExpense = async (id, updatedExpense, token) => {
 
     if (!response.ok) {
       throw new Error("Failed to update expense");
+
+      return await response.json({message:"Failed to update expense"})
     }
 
     return await response.json();

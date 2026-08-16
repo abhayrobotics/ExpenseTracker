@@ -4,14 +4,16 @@ import Dashboard from "./Dashboard"
 import ExpenseList from "./ExpenseList"
 import { fetchExpenses, createExpense, deleteExpense, updateExpense } from "../services/expenseServices"
 import Signin from "./Signin"
+import DatabaseError from "./DatabaseError"
 
-const Home = ({handleLogout}) => {
+const Home = ({ handleLogout }) => {
 
   const [isSignIn, setIsSignIn] = useState(false)
   const [AllExpense, setAllExpense] = useState([])
   const [displayAddExpense, setDisplayAddExpense] = useState(false)
   const [editableExpense, setEditableExpense] = useState({})
-
+  const [errorMessage, setErrorMessage] = useState("")
+  const [showErrorPage, setShowErrorPage] = useState(false)
   // const [totalSpend,setTotalSpend] = useState(0)
 
   useEffect(() => {
@@ -20,11 +22,12 @@ const Home = ({handleLogout}) => {
     loadExpenses()
   }, [])
 
-// Dashboard Data
+  // Dashboard Data
+  
   const totalSpendNow = AllExpense.reduce((sum, item) => sum + item.amount, 0)
-  const TotalSavings = AllExpense.filter((item)=>item.category==="Savings").reduce((sum,item)=>sum+item.amount,0 )
-  const Grocery = AllExpense.filter((item)=>item.category==="Grocery").reduce((sum,item)=>sum+item.amount,0 )
-  const LifeStyle = AllExpense.filter((item)=>item.category==="LifeStyle").reduce((sum,item)=>sum+item.amount,0 )
+  const TotalSavings = AllExpense.filter((item) => item.category === "Savings").reduce((sum, item) => sum + item.amount, 0)
+  const Grocery = AllExpense.filter((item) => item.category === "Grocery").reduce((sum, item) => sum + item.amount, 0)
+  const LifeStyle = AllExpense.filter((item) => item.category === "LifeStyle").reduce((sum, item) => sum + item.amount, 0)
   const dashboard_data = {
     totalSpendNow,
     TotalSavings,
@@ -61,6 +64,8 @@ const Home = ({handleLogout}) => {
     }
     catch (e) {
       console.log(e)
+       setShowErrorPage(true)
+
     }
 
   }
@@ -78,6 +83,7 @@ const Home = ({handleLogout}) => {
     }
     catch (e) {
       console.log(e)
+      setShowErrorPage(true)
     }
   }
 
@@ -111,7 +117,7 @@ const Home = ({handleLogout}) => {
 
   }
 
-  // updating he DB 
+  // updating the DB 
 
   const UpdateExpenseDB = async (id, amount, category, subcategory, date, notes) => {
     console.log(date)
@@ -131,20 +137,27 @@ const Home = ({handleLogout}) => {
         const token = localStorage.getItem("token")
 
         const updatedExpenseDB = await updateExpense(id, updatedExpense, token);
-        console.log(updatedExpenseDB)
+        // if failed
+        if (updatedExpenseDB?.message) {
+          setErrorMessage(updatedExpenseDB.message)
+          console.log(updatedExpenseDB)
+        }
+        else {
 
-        // updating me REact UI with updated data
-        setAllExpense((prev) => {
-          const updatedList = prev.map((item) => {
-            if (item.id === id) {
-              return updatedExpenseDB
-            }
-            else {
-              return item
-            }
+
+          // updating  REact UI with updated data
+          setAllExpense((prev) => {
+            const updatedList = prev.map((item) => {
+              if (item.id === id) {
+                return updatedExpenseDB
+              }
+              else {
+                return item
+              }
+            })
+            return updatedList
           })
-          return updatedList
-        })
+        }
       }
     }
     catch (e) {
@@ -159,13 +172,18 @@ const Home = ({handleLogout}) => {
   }
   return (
     <div className="w-full bg-white min-h-screen border m-auto p-2 overflow-hidden">
+      {showErrorPage ? <DatabaseError /> :
 
-      <Dashboard  handleLogout={handleLogout} dashboard_data={dashboard_data}/>
-      <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
-      {displayAddExpense &&
-        <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />
+        <div>
+          <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} />
+          <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
+          {displayAddExpense &&
+            <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />
+          }
+          <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+          <div>{errorMessage}</div>
+        </div>
       }
-      <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate} />
     </div>
   )
 }

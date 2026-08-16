@@ -11,6 +11,23 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
   const [notes,setNotes] =useState("")
   const [message,setMessage]=useState("")
   
+  
+  // update the components with new data 
+  useEffect(()=>{
+    // EditableExpense exists then update the value
+    if(Object.values(editableExpense).length>0){
+      setEditFlag(true)
+      const {id,amount,category,subcategory,date,notes} = editableExpense;
+      
+      const formatDate = date.split("T")[0]
+    setId(id)
+    setAmount(amount);
+    setCategory(category)
+    setSubcategory(subcategory)
+    setNotes(notes)
+    setDate(formatDate)
+    }
+  },[])
 
   // setting the max date allowed
   const maxDate = () => {
@@ -23,6 +40,7 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
     if(editFlag){
       console.log("update")
       setEditFlag(false)
+      // UI update with new data ans sent to DB for updating data for the required id
       UpdateExpenseDB(id,amount, category, subcategory, date,notes)
        onClose()
     }
@@ -40,22 +58,6 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
     }
   };
 
-  // update the components with new data 
-  useEffect(()=>{
-    // EditableExpense exists then update the value
-    if(Object.values(editableExpense).length>0){
-      setEditFlag(true)
-      const {id,amount,category,subcategory,date,notes} = editableExpense;
-      
-      const formatDate = date.split("T")[0]
-    setId(id)
-    setAmount(amount);
-    setCategory(category)
-    setSubcategory(subcategory)
-    setNotes(notes)
-    setDate(formatDate)
-    }
-  },[])
   
   
   // handlecategory

@@ -35,6 +35,7 @@ export const SUBCATEGORY = {
   "Shopping",
   "Leisure",
   "Dining Out",
+  "Eating Out",
   "Travel",
   "Entertainment",
   "Movies",
