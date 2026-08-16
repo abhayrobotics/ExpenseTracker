@@ -11,10 +11,12 @@ const Signin = ({ signInStatus }) => {
 
     const [showSignin, setShowSignin] = useState(true)
     const [loading, setLoading] = useState(false)
+    const [message,setMessage] =useState("")
 
     const signInHandler = async () => {
         setLoading(true)
         try {
+             setMessage("")
             const isLogin = await loginRequest(email, password);
 
             if (isLogin.token) {
@@ -23,6 +25,9 @@ const Signin = ({ signInStatus }) => {
                 localStorage.setItem("token", isLogin.token);
             } else {
                 console.log(isLogin);
+                setLoading(false)
+                setMessage(isLogin?.message)
+                
             }
         } catch (e) {
             console.log(e);
@@ -115,7 +120,7 @@ const Signin = ({ signInStatus }) => {
                         className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer active:scale-[0.98] transition text-white font-semibold py-3 rounded-xl shadow-lg"
                     >
                         {loading ? 
-                            "Signing in ..."
+                           "Signing in ..."
                              : "Sign In"}
 
             </button> :
@@ -128,6 +133,8 @@ const Signin = ({ signInStatus }) => {
             </button>
                 }
             {loading ? <LoadingSpinner /> : ""}
+
+            <div className="text-red-500 text-center">{message}</div>
             <div className="mt-6 text-center text-gray-600">
                 <span>Don't have an account? </span>
 

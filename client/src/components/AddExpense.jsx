@@ -4,11 +4,12 @@ import { CATEGORY, SUBCATEGORY } from "../storage/constant";
 const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) => {
   const [editFlag,setEditFlag] =useState(false)
   const [id,setId] =useState("")
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("Grocery");
   const [subcategory, setSubcategory] = useState(SUBCATEGORY[category][0]);
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [notes,setNotes] =useState("")
+  const [message,setMessage]=useState("")
   
 
   // setting the max date allowed
@@ -20,15 +21,23 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
   // calling the parent function to update
   const handleAdd = () => {
     if(editFlag){
-      console.log(date)
+      console.log("update")
       setEditFlag(false)
       UpdateExpenseDB(id,amount, category, subcategory, date,notes)
+       onClose()
     }
     else{
-      // console.log(date)
-      AddNewExpense(amount, category, subcategory, date,notes);
+      // console.log(amount)
+      if(amount==""){
+        setMessage("Amount cannot be Rs. 0")
+        
+      }
+      else{
+
+        AddNewExpense(amount, category, subcategory, date,notes);
+        onClose()
+      }
     }
-    onClose()
   };
 
   // update the components with new data 
@@ -167,6 +176,7 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
           {editFlag?"Update Expense":"Add Expense"}
           </button>
         </div>
+          <div className="text-red-500 text-right pb-2 pr-6"> {message}</div>
       </div>
     </div>
   );

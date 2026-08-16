@@ -283,9 +283,9 @@ Building this project as part of my journey toward becoming a Full Stack & AI De
 
 ## Bugs
 
--  signin sometime late
--  update from same account does not show in the UI, until not refreshed
--  border is not consitent color
--  if no items are added, the website does not take full length
+-  signin sometime late -sppiner added✅
+-  update from same account does not show in the UI, until not refreshed -future socket required
+-  border is not consitent color -done✅
+-  if no items are added, the website does not take full length -✅
 -  create a back up data file for server
--  currently the deployment updates with the last commit , pause it with github tags
+-  currently the deployment updates with the last commit , pause it with github tags✅
