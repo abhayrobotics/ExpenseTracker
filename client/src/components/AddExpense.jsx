@@ -47,7 +47,7 @@ const AddExpense = ({ AddNewExpense,editableExpense,UpdateExpenseDB, onClose }) 
     else{
       // console.log(amount)
       if(amount==""){
-        setMessage("Amount cannot be Rs. 0")
+        setMessage("Amount cannot be  ₹ 0")
         
       }
       else{

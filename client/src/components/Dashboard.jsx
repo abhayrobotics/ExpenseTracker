@@ -1,20 +1,15 @@
 import { ShoppingBasket } from "lucide-react";
+import { useState } from "react";
+import BudgetPlanModal from "./BudgetPlanModal";
 
 const Dashboard = ({dashboard_data, handleLogout}) => {
 
   const {totalSpendNow,TotalSavings,Grocery,LifeStyle}= dashboard_data;
-
+  
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-4 md:p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg md:text-xl font-semibold text-gray-800">
-          Dashboard
-        </h2>
-        <h2 className="text-lg md:text-xl  text-gray-800 hover:cursor-pointer p-2  hover:text-red-600" onClick={handleLogout}>
-          Logout
-        </h2>
-      </div>
+      
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {/* Balance */}
