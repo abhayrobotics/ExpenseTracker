@@ -173,6 +173,7 @@ const Home = ({ handleLogout }) => {
             return updatedList
           })
           setShowErrorPage({status:false})
+          setEditableExpense({})
         }
       }
     }
