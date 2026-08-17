@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import BudgetPlanModal from "./BudgetPlanModal"
 import AddExpense from "./AddExpense"
 import Dashboard from "./Dashboard"
 import ExpenseList from "./ExpenseList"
@@ -9,11 +10,12 @@ import DatabaseError from "./DatabaseError"
 const Home = ({ handleLogout }) => {
 
   const [isSignIn, setIsSignIn] = useState(false)
+  const [showBudget,setShowBudget]=useState(false)
   const [AllExpense, setAllExpense] = useState([])
   const [displayAddExpense, setDisplayAddExpense] = useState(false)
   const [editableExpense, setEditableExpense] = useState({})
   const [errorMessage, setErrorMessage] = useState("")
-  const [showErrorPage, setShowErrorPage] = useState(false)
+  const [showErrorPage, setShowErrorPage] = useState({ status: false, retryAction: null })
   // const [totalSpend,setTotalSpend] = useState(0)
 
   
@@ -24,7 +26,7 @@ const Home = ({ handleLogout }) => {
   }, [])
 
   // Dashboard Data
-  
+
   const totalSpendNow = AllExpense.reduce((sum, item) => sum + item.amount, 0)
   const TotalSavings = AllExpense.filter((item) => item.category === "Savings").reduce((sum, item) => sum + item.amount, 0)
   const Grocery = AllExpense.filter((item) => item.category === "Grocery").reduce((sum, item) => sum + item.amount, 0)
@@ -49,7 +51,7 @@ const Home = ({ handleLogout }) => {
 
   const AddNewExpense = async (amount, category, subcategory, date, notes) => {
     try {
-
+      console.log("retrying")
       const newExpense = {
         // id: crypto.randomUUID(),
         amount,
@@ -62,10 +64,14 @@ const Home = ({ handleLogout }) => {
       const createdExpense = await createExpense(newExpense, token)
 
       setAllExpense((prev) => [...prev, createdExpense])
+      setShowErrorPage({ status: false })
     }
     catch (e) {
-      console.log(e)
-       setShowErrorPage(true)
+      console.log(e, "retry")
+      setShowErrorPage({
+        status: true,
+        retryAction: () => AddNewExpense(amount, category, subcategory, date, notes)
+      })
 
     }
 
@@ -79,12 +85,19 @@ const Home = ({ handleLogout }) => {
         const result = await fetchExpenses(token)
         // console.log(result)
         setAllExpense(result)
+
+
+        setShowErrorPage({ status: false })
       }
 
     }
     catch (e) {
-      console.log(e)
-      setShowErrorPage(true)
+      console.log(e, "retry")
+      // retry database error page
+      setShowErrorPage({
+        status: true,
+        retryAction: () => loadExpenses()
+      })
     }
   }
 
@@ -101,11 +114,15 @@ const Home = ({ handleLogout }) => {
         setAllExpense(prev =>
           prev.filter(item => item.id !== id)
         );
-
+        setShowErrorPage({ status: false })
       }
     }
     catch (e) {
       console.log(e)
+      setShowErrorPage({
+        status: true,
+        retryAction: () => handleDelete(id)
+      })
     }
   }
 
@@ -158,11 +175,18 @@ const Home = ({ handleLogout }) => {
             })
             return updatedList
           })
+          setShowErrorPage({ status: false })
+          setEditableExpense({})
         }
       }
     }
     catch (e) {
       console.log(e)
+      // retry database error page
+      setShowErrorPage({
+        status: true,
+        retryAction: () => UpdateExpenseDB(id, amount, category, subcategory, date, notes)
+      })
     }
 
 
@@ -173,10 +197,22 @@ const Home = ({ handleLogout }) => {
   }
   return (
     <div className="w-full bg-white min-h-screen border m-auto p-2 overflow-hidden">
-      {showErrorPage ? <DatabaseError /> :
+      {showErrorPage?.status ? <DatabaseError retryAction={showErrorPage?.retryAction} /> :
 
         <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg md:text-xl font-semibold text-gray-800">
+              Dashboard
+            </h2>
+            <button onClick={() => setShowBudget(true)} className="text-lg md:text-xl font-semibold text-gray-800">Plan your Month</button>
+            <h2 className="text-lg md:text-xl  text-gray-800 hover:cursor-pointer p-2  hover:text-red-600" onClick={handleLogout}>
+              Logout
+            </h2>
+          </div>
+
+          {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} /> : ""}
           <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} />
+
           <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
           {displayAddExpense &&
             <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />

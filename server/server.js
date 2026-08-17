@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 const prisma = new PrismaClient();
-
+console.log("FRONTEND_URL =", process.env.FRONTEND_URL);
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,

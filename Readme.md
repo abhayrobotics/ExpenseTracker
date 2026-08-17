@@ -246,15 +246,17 @@ PostgreSQL
 
 # 🚀 Upcoming Features
 
-- Dashboard Cards
+- Dashboard Cards✅ 
 - Monthly Analytics
 - Charts
 - Category-wise Reports
-- Authentication (JWT)
-- User Accounts
+- Authentication (JWT) ✅ 
+- User Accounts✅ 
 - AI Expense Suggestions
 - Budget Planning
-- Deployment
+- Deployment✅ 
+- using cookes 
+- using socket for live connection
 
 ---
 

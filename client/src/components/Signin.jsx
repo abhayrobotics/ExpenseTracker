@@ -31,6 +31,8 @@ const Signin = ({ signInStatus }) => {
             }
         } catch (e) {
             console.log(e);
+            
+
         }
     };
 
@@ -48,7 +50,7 @@ const Signin = ({ signInStatus }) => {
     }
 
     return (
-        <div className="h-dvh overflow-hidden flex items-center justify-center bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100 px-4">
+        <div className="h-dvh overflow-hidden flex items-center justify-center bg-linear-to-br from-violet-100 via-purple-50 to-indigo-100 px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
 
                 {/* Title */}
