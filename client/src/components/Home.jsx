@@ -204,7 +204,7 @@ const Home = ({ handleLogout }) => {
             <h2 className="text-lg md:text-xl font-semibold text-gray-800">
               Dashboard
             </h2>
-            <button onClick={() => setShowBudget(true)} className="text-lg md:text-xl font-semibold text-gray-800">Plan your Month</button>
+           /* <button onClick={() => setShowBudget(true)} className="text-lg md:text-xl font-semibold text-gray-800">Plan your Month</button>*/
             <h2 className="text-lg md:text-xl  text-gray-800 hover:cursor-pointer p-2  hover:text-red-600" onClick={handleLogout}>
               Logout
             </h2>
