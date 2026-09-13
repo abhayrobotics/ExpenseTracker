@@ -1,3 +1,24 @@
+# 💰 Expense Tracker
+A full-stack Expense Tracker application built with **React, Express.js, Prisma ORM, and PostgreSQL**.
+
+The application allows users to manage their daily expenses with complete CRUD functionality and serves as a backend learning project focused on modern full-stack development.
+
+---
+
+# 🚀 Features
+
+- ✅ Add Expense
+- ✅ View Expenses
+- ✅ Update Expense
+- ✅ Delete Expense
+- ✅ PostgreSQL Database Integration
+- ✅ REST API using Express.js
+- ✅ Prisma ORM
+- ✅ Responsive UI
+- ✅ Dashboard 
+- 🔄 Expense Analytics (Planned)
+- 🔄 AI Expense Suggestions (Planned)
+
 # 📐 Expense Tracker — System Architecture, Sequence Diagrams, ADRs & Engineering Log
 
 ---
