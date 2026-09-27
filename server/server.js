@@ -41,14 +41,14 @@ const authenticateUser = (req, res, next) => {
     });
   }
 };
-app.get("/",(req,res)=>{
-  res.send("Homepage")
-})
+app.get("/", (req, res) => {
+  res.send("Homepage");
+});
 app.get("/auth", authenticateUser, (req, res) => {
   if (req.user.userId) {
-    return res.json({ isUserLoggedIn: true })
+    return res.json({ isUserLoggedIn: true });
   }
-  return res.json({ isUserLoggedIn: false })
+  return res.json({ isUserLoggedIn: false });
 });
 
 // read expenses
@@ -59,7 +59,7 @@ app.get("/expenses", authenticateUser, async (req, res) => {
         userId: req.user.userId,
       },
     });
-    console.log(expenses)
+    console.log(expenses);
     res.json(expenses);
   } catch (e) {
     console.error(e);
@@ -86,13 +86,12 @@ app.post("/signup", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("done")
+    console.log("done");
     const user = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
-
       },
     });
     res.status(200).json({
@@ -137,8 +136,6 @@ app.post("/signin", async (req, res) => {
       expiresIn: "1h",
     });
 
-
-
     res.status(200).json({
       token,
       user: {
@@ -180,7 +177,7 @@ app.delete("/expenses/:id", authenticateUser, async (req, res) => {
     where: {
       id,
       userId: req.user.userId,
-    }
+    },
   });
   if (newList.count === 0) {
     return res.status(404).json({
@@ -195,13 +192,13 @@ app.delete("/expenses/:id", authenticateUser, async (req, res) => {
 });
 
 // update a expense
-app.patch("/expenses/:updateId",authenticateUser, async (req, res) => {
+app.patch("/expenses/:updateId", authenticateUser, async (req, res) => {
   const updateId = Number(req.params.updateId);
   const { category, amount, subcategory, notes, date } = req.body;
   console.log(req.body);
   try {
     const updatedList = await prisma.expense.update({
-      where: { id: updateId ,userId: req.user.userId,},
+      where: { id: updateId, userId: req.user.userId },
       data: {
         amount,
         category,

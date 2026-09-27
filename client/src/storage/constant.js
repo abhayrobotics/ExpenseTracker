@@ -1,7 +1,6 @@
-
 // export const BASE_URL = "http://localhost:3000";
 
-export const BASE_URL = import.meta.env.VITE_BASE_URL
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const CATEGORY = [
   "Grocery",
@@ -20,35 +19,35 @@ export const CATEGORY = [
   "Recharge",
   "Transport",
   "Shopping",
-  
-]
+];
 export const SUBCATEGORY = {
-  "Savings":[
+  Savings: [
     "Recurring Deposit",
     "Fixed Deposit",
     "SIP",
     "Stocks",
     "PPF contribution",
-    "Piggy Bank"
+    "Piggy Bank",
   ],
-  "LifeStyle" : [
-  "Shopping",
-  "Leisure",
-  "Dining Out",
-  "Eating Out",
-  "Travel",
-  "Entertainment",
-  "Movies",
-  "Coffee",
-  "Electronics",
-],
-  
+  LifeStyle: [
+    "Shopping",
+    "Leisure",
+    "Dining Out",
+    "Eating Out",
+    "Travel",
+    "Entertainment",
+    "Movies",
+    "Coffee",
+    "Electronics",
+    "Gifting",
+  ],
+
   "House Rent": [
     "Monthly Rent",
     "Maintenance",
     "Electricity",
     "Gas",
-    "Internet"
+    "Internet",
   ],
 
   "Parent Expense": [
@@ -56,7 +55,7 @@ export const SUBCATEGORY = {
     "Medicine",
     "Doctor Visit",
     "Groceries",
-    "Emergency"
+    "Emergency",
   ],
 
   "Credit Card Bill": [
@@ -64,98 +63,66 @@ export const SUBCATEGORY = {
     "EMI",
     "Late Fee",
     "Interest Charge",
-    "Annual Fee"
+    "Annual Fee",
   ],
 
-  "Maid": [
-    "Salary",
-    "Bonus",
-    "Festival Bonus",
-    "Extra Work"
-  ],
+  Maid: ["Salary", "Bonus", "Festival Bonus", "Extra Work"],
 
-  "Milk": [
-    "Daily Milk",
-    "Curd",
-    "Paneer",
-    "Butter",
-    "Other Dairy"
-  ],
+  Milk: ["Daily Milk", "Curd", "Paneer", "Butter", "Other Dairy"],
 
-  "Grocery": [
+  Grocery: [
     "Vegetables",
     "Fruits",
     "Rice & Atta",
-    "Oil & Spices",
+    "Oil",
+    "Spices",
     "Snacks",
-    "Household Items"
+    "Household Items",
   ],
 
-  "Water": [
-    "Drinking Water",
-    "Jar/Can Refill",
-    "Filter Service"
-  ],
+  Water: ["Drinking Water", "Jar/Can Refill", "Filter Service"],
 
-  "Wife": [
+  Wife: [
     "Pocket Money",
     "Shopping",
     "Stationery",
-    "Toy / Small Treat"
+    "Toy / Small Treat",
+    "Cosmetics",
   ],
 
-  "Miscellaneous": [
+  Miscellaneous: [
     "Unexpected Expense",
     "Gift",
     "Repair",
     "Home Item",
     "Cash Withdrawal",
-    "Other"
+    "Other",
   ],
 
-  "Travel": [
-    "Train",
-    "Bus",
-    "Hotel",
-    "Food",
-    "Sightseeing",
-    "Local Transport"
-  ],
+  Travel: ["Train", "Bus", "Hotel", "Food", "Sightseeing", "Local Transport"],
 
-  "Medicine": [
+  Medicine: [
     "Doctor Consultation",
     "Tests",
     "Medicines",
     "Pharmacy",
-    "Emergency"
+    "Emergency",
   ],
 
-  "Recharge": [
+  Recharge: [
     "Mobile Recharge",
     "Internet Recharge",
     "DTH Recharge",
-    "OTT Subscription"
+    "OTT Subscription",
   ],
 
-  "Transport": [
-    "Auto",
-    "Bus",
-    "Fuel",
-    "Parking",
-    "Bike Service"
-  ],
-  "Shopping":[
-    "Clothes",
-    "Cosmetics",
-    "Gifting",
-    "Home Decor"
-  ]
+  Transport: ["Auto", "Bus", "Fuel", "Parking", "Bike Service"],
+  Shopping: ["Clothes", "Cosmetics", "Home Decor"],
 };
 
 export const EXPENSE_TYPE = [
   "Household Expense",
   "Good to have",
   "Savings",
-  "Entertainment "
-
-]
+  "Entertainment ",
+];

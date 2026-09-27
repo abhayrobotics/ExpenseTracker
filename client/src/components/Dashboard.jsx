@@ -2,20 +2,20 @@ import { ShoppingBasket } from "lucide-react";
 import { useState } from "react";
 import BudgetPlanModal from "./BudgetPlanModal";
 
-const Dashboard = ({dashboard_data, handleLogout}) => {
+const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
 
-  const {totalSpendNow,TotalSavings,Grocery,LifeStyle}= dashboard_data;
-  
+  const { totalSpendNow, TotalSavings, Grocery, LifeStyle } = dashboard_data;
+  console.log(budgetData)
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-4 md:p-6">
-      
+
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {/* Balance */}
         <div className="col-span-2 bg-linear-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium opacity-90">Balance</p>
-          <h3 className="text-2xl md:text-3xl font-bold mt-2">₹{60000- totalSpendNow }</h3>
+          <h3 className="text-2xl md:text-3xl font-bold mt-2">₹{60000 - totalSpendNow}</h3>
           <p className="text-xs mt-2 opacity-80">Available after expenses</p>
         </div>
 
@@ -39,7 +39,7 @@ const Dashboard = ({dashboard_data, handleLogout}) => {
 
         {/* Need */}
         <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 shadow-sm">
-          <p className="text-sm font-medium text-amber-700">Grocery </p> 
+          <p className="text-sm font-medium text-amber-700">Grocery </p>
           <h3 className="text-xl md:text-2xl font-bold text-amber-800 mt-2">
             ₹ {Grocery}
           </h3>

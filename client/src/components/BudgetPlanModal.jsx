@@ -5,8 +5,11 @@ import {
   PiggyBank,
   X,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
-const BudgetPlanModal = ({ setShowBudget }) => {
+const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
+
+
 
   const DASHBOARD_CARDS = [
     {
@@ -14,26 +17,33 @@ const BudgetPlanModal = ({ setShowBudget }) => {
       title: "Grocery",
       color: "green",
       desc: "Maximum monthly expense",
-      value: ""
+      value: 0
     },
     {
       Icon: Sparkles,
       title: "LifeStyle",
       color: "yellow",
       desc: "Maximum monthly expense",
-      value: ""
+      value: 0
     },
     {
       Icon: PiggyBank,
       title: "Savings",
       color: "blue",
       desc: "Minimum amount you must save monthly ",
-      value: ""
+      value: 0
     },
 
   ]
+  useEffect(() => {
 
+    setBudgetData(DASHBOARD_CARDS)
+  }, [])
 
+  const handleSubmit = () => {
+    setBudgetData(budgetData)
+    setShowBudget(false)
+  }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm">
       <div className="w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-2xl">
@@ -100,8 +110,8 @@ const BudgetPlanModal = ({ setShowBudget }) => {
             </div>
 
             <div className="space-y-3">
-              {DASHBOARD_CARDS?.map((item) => {
-                const IconDiv = item.Icon
+              {budgetData?.map((item) => {
+                const IconDiv = item?.Icon
                 return (
                   <>
                     <div className="flex items-center gap-4 rounded-xl border border-gray-200 p-2 transition hover:border-purple-200 hover:bg-purple-50/30">
@@ -121,6 +131,10 @@ const BudgetPlanModal = ({ setShowBudget }) => {
                       <div className="flex w-32 items-center rounded-lg border border-gray-300 bg-white px-3">
                         <span className="text-sm text-gray-400">₹</span>
                         <input
+                          value={item.value}
+                          onChange={(e) => setBudgetData((prev) => (prev.map((element) =>
+                            element.title == item.title ? { ...element, value: e.target.value } : element
+                          )))}
                           type="number"
                           placeholder="3,000"
                           className="w-full bg-transparent px-2 py-2 text-right text-sm outline-none"
@@ -141,7 +155,7 @@ const BudgetPlanModal = ({ setShowBudget }) => {
             Cancel
           </button>
 
-          <button className="flex-1 rounded-xl bg-purple-600 px-3 py-2 font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700 active:scale-[0.98]">
+          <button onClick={handleSubmit} className="flex-1 rounded-xl bg-purple-600 px-3 py-2 font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700 active:scale-[0.98]">
             Create Budget Plan
           </button>
         </div>

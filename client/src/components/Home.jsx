@@ -6,11 +6,17 @@ import ExpenseList from "./ExpenseList"
 import { fetchExpenses, createExpense, deleteExpense, updateExpense } from "../services/expenseServices"
 import Signin from "./Signin"
 import DatabaseError from "./DatabaseError"
+import {
+  Wallet,
+  X,
+  LogOut,
+  ChartNoAxesCombined
+} from "lucide-react";
 
 const Home = ({ handleLogout }) => {
 
   const [isSignIn, setIsSignIn] = useState(false)
-  const [showBudget,setShowBudget]=useState(false)
+  const [showBudget, setShowBudget] = useState(false)
   const [AllExpense, setAllExpense] = useState([])
   const [displayAddExpense, setDisplayAddExpense] = useState(false)
   const [editableExpense, setEditableExpense] = useState({})
@@ -18,7 +24,10 @@ const Home = ({ handleLogout }) => {
   const [showErrorPage, setShowErrorPage] = useState({ status: false, retryAction: null })
   // const [totalSpend,setTotalSpend] = useState(0)
 
-  
+
+
+  const [budgetData, setBudgetData] = useState(null)
+
   useEffect(() => {
     // console.log(AllExpense.length)
 
@@ -36,6 +45,10 @@ const Home = ({ handleLogout }) => {
     TotalSavings,
     Grocery,
     LifeStyle
+  }
+
+  const sendBudgetData = (data) => {
+
   }
   // console.log(totalSpendNow)
 
@@ -201,17 +214,30 @@ const Home = ({ handleLogout }) => {
 
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-800">
-              Dashboard
-            </h2>
-            {/* <button onClick={() => setShowBudget(true)} className="text-lg md:text-xl font-semibold text-gray-800">Plan your Month</button>*/}
-            <h2 className="text-lg md:text-xl  text-gray-800 hover:cursor-pointer p-2  hover:text-red-600" onClick={handleLogout}>
-              Logout
-            </h2>
+
+            <div className="flex items-center rounded-xl  p-3 text-green-600">
+              <ChartNoAxesCombined size={24} />
+              <h2 className="pl-2 text-lg md:text-xl font-semibold text-gray-800">
+                Analytics
+              </h2>
+            </div>
+
+            <div className="flex items-center rounded-xl bg-purple-100 hover:bg-purple-200  cursor-pointer p-3 text-purple-600">
+              <Wallet size={24} />
+              <button onClick={() => setShowBudget(true)} className=" cursor-pointer pl-2 text-lg md:text-xl font-semibold text-gray-800">Budget Plan</button>
+            </div>
+
+            <div className="flex items-center rounded-xl bg-red-50 hover:bg-red-100  cursor-pointer p-3  text-red-600">
+              <LogOut size={22} />
+              <h2 className="text-lg md:text-xl pl-2  text-gray-800 hover:cursor-pointer  hover:text-red-600" onClick={handleLogout}>
+                Logout
+              </h2>
+            </div>
+
           </div>
 
-          {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} /> : ""}
-          <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} />
+          {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} /> : ""}
+          <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} budgetData={budgetData} />
 
           <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
           {displayAddExpense &&
