@@ -10,8 +10,18 @@ import { useEffect, useState } from "react";
 const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
 
 
-
+  const [balance,setBalance] = useState({
+      title: "Balance",
+      value: 0
+    })
   const DASHBOARD_CARDS = [
+    {
+      Icon: Wallet,
+      title: "Balance",
+      color: "purple",
+      desc: " Amount available for this budget period. ",
+      value: 60000
+    },
     {
       Icon: ShoppingCart,
       title: "Grocery",
@@ -35,6 +45,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
     },
 
   ]
+
   useEffect(() => {
 
     setBudgetData(DASHBOARD_CARDS)
@@ -76,28 +87,6 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
         {/* Content */}
         <div className=" px-6 py-1">
 
-          {/* Starting amount */}
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-gray-700">
-              Starting Amount
-            </label>
-
-            <div className="flex items-center rounded-xl border border-gray-300 bg-gray-50 px-4 transition focus-within:border-purple-500 focus-within:ring-2 focus-within:ring-purple-500/20">
-              <span className="text-lg font-semibold text-gray-400">
-                ₹
-              </span>
-
-              <input
-                type="number"
-                placeholder="5,000"
-                className="w-full bg-transparent px-3 py-1 text-lg font-medium text-gray-800 outline-none"
-              />
-            </div>
-
-            <p className="mt-1 mb-2 text-xs text-gray-400">
-              Amount available for this budget period.
-            </p>
-          </div>
 
           {/* Limits */}
           <div>

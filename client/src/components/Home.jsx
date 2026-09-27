@@ -24,9 +24,9 @@ const Home = ({ handleLogout }) => {
   const [showErrorPage, setShowErrorPage] = useState({ status: false, retryAction: null })
   // const [totalSpend,setTotalSpend] = useState(0)
 
+  const [budgetData, setBudgetData] = useState([])
 
 
-  const [budgetData, setBudgetData] = useState(null)
 
   useEffect(() => {
     // console.log(AllExpense.length)
