@@ -75,7 +75,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
           <div className="flex justify-between items-center">
 
             <p className="text-xs text-fuchsia-600 mt-2">Budget: {`₹ ${LifeStyleBudget}`} </p>
-            <p className={` font-semibold ${Math.round(LifeStyle / LifeStyleBudget * 100) > 100 ? "text-red-600 bg-red-100 p-2 rounded-sm text-xs" : "text-green-600 bg-green-100 p-2 text-xs"}  mt-2`}>{` ${Math.round(LifeStyle / LifeStyleBudget * 100)}% Utilized`} </p>
+            <p className={` font-semibold p-2 rounded-sm ${Math.round(LifeStyle / LifeStyleBudget * 100) > 100 ? "text-red-600 bg-red-100 p-2 rounded-sm text-xs" : "text-green-600 bg-green-100 p-2 text-xs"}  mt-2`}>{` ${Math.round(LifeStyle / LifeStyleBudget * 100)}% Utilized`} </p>
           </div>
         </div>
       </div>
