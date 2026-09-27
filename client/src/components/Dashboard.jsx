@@ -22,7 +22,12 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
         <div className="col-span-2 bg-linear-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium opacity-90">Balance</p>
           <h3 className="text-2xl md:text-3xl font-bold mt-2">₹{balance - totalSpendNow}</h3>
-          <p className="text-xs mt-2 opacity-80">Available after expenses</p>
+           <div className="flex justify-between items-center">
+
+            <p className="text-sm font-semibold text-gray-600 mt-2">Starting Balance: {`₹ ${balance}`} </p>
+            <p className={` font-semibold p-2 rounded-sm ${Math.round(totalSpendNow / balance * 100) > 90 ? "text-red-600 bg-red-100  text-xs" : "text-green-600 bg-green-100 p-2 text-xs"}  mt-2`}>{` ${Math.round(totalSpendNow / balance * 100)}% Utilized`} </p>
+          </div>
+          {/* <p className="text-xs mt-2 opacity-80">Available after expenses</p> */}
         </div>
 
         {/* Total Spend */}
@@ -43,7 +48,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
           <div className="flex justify-between items-center">
 
             <p className="text-xs text-fuchsia-600 mt-2">Budget: {`₹ ${savingBudget}`} </p>
-            <p className={` font-semibold ${Math.round(TotalSavings / savingBudget * 100) < 100 ? "text-red-600 bg-red-100 p-2 rounded-sm text-xs" : "text-green-600 bg-green-100 p-2 text-xs"}  mt-2`}>{` ${Math.round(TotalSavings / savingBudget * 100)}% Saved`} </p>
+            <p className={` font-semibold p-2 rounded-sm ${Math.round(TotalSavings / savingBudget * 100) < 100 ? "text-red-600 bg-red-100 p-2 rounded-sm text-xs" : "text-green-600 bg-green-100 p-2 text-xs"}  mt-2`}>{` ${Math.round(TotalSavings / savingBudget * 100)}% Saved`} </p>
           </div>
         </div>
 
@@ -57,7 +62,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
           <div className="flex justify-between items-center">
 
             <p className="text-xs text-fuchsia-600 mt-2">Budget: {`₹ ${groceryBudget}`} </p>
-            <p className={` font-semibold ${Math.round(Grocery / groceryBudget * 100) > 100 ? "text-red-600 bg-red-100 p-2 rounded-sm text-xs" : "text-green-600 bg-green-100 p-2 text-xs"}  mt-2`}>{` ${Math.round(Grocery / groceryBudget * 100)}% Utilized`} </p>
+            <p className={` font-semibold p-2 rounded-sm ${Math.round(Grocery / groceryBudget * 100) > 100 ? "text-red-600 bg-red-100  text-xs" : "text-green-600 bg-green-100  text-xs"}  mt-2`}>{` ${Math.round(Grocery / groceryBudget * 100)}% Utilized`} </p>
           </div>
         </div>
 

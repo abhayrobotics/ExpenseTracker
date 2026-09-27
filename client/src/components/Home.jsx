@@ -12,6 +12,7 @@ import {
   LogOut,
   ChartNoAxesCombined
 } from "lucide-react";
+import { DASHBOARD_CARDS } from "../storage/constant"
 
 const Home = ({ handleLogout }) => {
 
@@ -32,6 +33,7 @@ const Home = ({ handleLogout }) => {
     // console.log(AllExpense.length)
 
     loadExpenses()
+    setBudgetData(DASHBOARD_CARDS)
   }, [])
 
   // Dashboard Data
@@ -213,7 +215,7 @@ const Home = ({ handleLogout }) => {
       {showErrorPage?.status ? <DatabaseError retryAction={showErrorPage?.retryAction} /> :
 
         <div>
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between ">
 
             <div className="flex items-center rounded-xl  p-3 text-green-600">
               <ChartNoAxesCombined size={24} />
@@ -222,18 +224,19 @@ const Home = ({ handleLogout }) => {
               </h2>
             </div>
 
-            <div className="flex items-center rounded-xl bg-purple-100 hover:bg-purple-200  cursor-pointer p-3 text-purple-600">
-              <Wallet size={24} />
-              <button onClick={() => setShowBudget(true)} className=" cursor-pointer pl-2 text-lg md:text-xl font-semibold text-gray-800">Budget Plan</button>
-            </div>
+            <div className="flex">
+              <div className="flex items-center rounded-xl mx-2 bg-purple-100 hover:bg-purple-200  cursor-pointer px-2  text-purple-600">
+                <Wallet size={16} />
+                <button onClick={() => setShowBudget(true)} className=" cursor-pointer pl-2 text-md md:text-lg font-semibold text-gray-800">Budget Plan</button>
+              </div>
 
-            <div className="flex items-center rounded-xl bg-red-50 hover:bg-red-100  cursor-pointer p-3  text-red-600">
-              <LogOut size={22} />
-              <h2 className="text-lg md:text-xl pl-2  text-gray-800 hover:cursor-pointer  hover:text-red-600" onClick={handleLogout}>
-                Logout
-              </h2>
+              <div className="flex items-center rounded-xl bg-red-50 hover:bg-red-100  cursor-pointer p-2  text-red-600">
+                <LogOut size={22} />
+                <h2 className="text-md md:text-ld pl-2  text-gray-800 hover:cursor-pointer  hover:text-red-600" onClick={handleLogout}>
+                  Logout
+                </h2>
+              </div>
             </div>
-
           </div>
 
           {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} /> : ""}

@@ -10,47 +10,7 @@ import { useEffect, useState } from "react";
 const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
 
 
-  const [balance,setBalance] = useState({
-      title: "Balance",
-      value: 0
-    })
-  const DASHBOARD_CARDS = [
-    {
-      Icon: Wallet,
-      title: "Balance",
-      color: "purple",
-      desc: " Amount available for this budget period. ",
-      value: 60000
-    },
-    {
-      Icon: ShoppingCart,
-      title: "Grocery",
-      color: "green",
-      desc: "Maximum monthly expense",
-      value: 0
-    },
-    {
-      Icon: Sparkles,
-      title: "LifeStyle",
-      color: "yellow",
-      desc: "Maximum monthly expense",
-      value: 0
-    },
-    {
-      Icon: PiggyBank,
-      title: "Savings",
-      color: "blue",
-      desc: "Minimum amount you must save monthly ",
-      value: 0
-    },
-
-  ]
-
-  useEffect(() => {
-
-    setBudgetData(DASHBOARD_CARDS)
-  }, [])
-
+ 
   const handleSubmit = () => {
     setBudgetData(budgetData)
     setShowBudget(false)
