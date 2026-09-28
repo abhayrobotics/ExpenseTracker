@@ -5,7 +5,7 @@ import BudgetPlanModal from "./BudgetPlanModal";
 const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
 
   const { totalSpendNow, TotalSavings, Grocery, LifeStyle } = dashboard_data;
-  console.log(budgetData)
+  // console.log(budgetData)
   // console.log(budgetData?.find((item)=>item.title=="Balance").value)
 
   const balance = budgetData?.find((item) => item?.title == "Balance")?.value;
@@ -19,12 +19,12 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {/* Balance */}
-        <div className="col-span-2 bg-linear-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 shadow-sm">
+        <div className="col-span-2   bg-linear-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium opacity-90">Balance</p>
           <h3 className="text-2xl md:text-3xl font-bold mt-2">₹{balance - totalSpendNow}</h3>
            <div className="flex justify-between items-center">
 
-            <p className="text-sm font-semibold text-gray-600 mt-2">Starting Balance: {`₹ ${balance}`} </p>
+            <p className="text-sm font-semibold text-gray-200 mt-2">Starting Balance: {`₹ ${balance}`} </p>
             <p className={` font-semibold p-2 rounded-sm ${Math.round(totalSpendNow / balance * 100) > 90 ? "text-red-600 bg-red-100  text-xs" : "text-green-600 bg-green-100 p-2 text-xs"}  mt-2`}>{` ${Math.round(totalSpendNow / balance * 100)}% Utilized`} </p>
           </div>
           {/* <p className="text-xs mt-2 opacity-80">Available after expenses</p> */}

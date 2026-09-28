@@ -210,6 +210,9 @@ const Home = ({ handleLogout }) => {
   const signInStatus = (status) => {
     setIsSignIn(status)
   }
+
+  // handleEport
+
   return (
     <div className="w-full bg-white min-h-screen border m-auto p-2 overflow-hidden">
       {showErrorPage?.status ? <DatabaseError retryAction={showErrorPage?.retryAction} /> :

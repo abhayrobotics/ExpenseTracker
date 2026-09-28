@@ -1,15 +1,21 @@
 import { SquarePen, Trash2 } from "lucide-react";
+import { ExportExcelSheet } from "./ExportExcelSheet";
 const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
 
 
+  
   return (
     <div className="bg-white rounded-2xl shadow-md my-2 p-2 md:p-2">
-      <div>
+      <div className="mb-4">
 
-        <h2 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">
+        <h2 className="text-lg md:text-xl font-semibold text-gray-800 ">
           Expenses
         </h2>
-        {/* <h3 className="text-md md:text-md font-semibold text-gray-600 mb-4 ">sort</h3> */}
+        <div className="flex justify-end w-full">
+
+        <h3 className="text-md md:text-md font-semibold text-gray-700 m-2 ml-0 cursor-pointer px-2 py-1 rounded-md hover:bg-green-300 ">Filter</h3>
+        <ExportExcelSheet  AllExpense ={AllExpense}/>
+        </div>
       </div>
       {AllExpense.length === 0 ? "Add your first expense to start tracking"
         :
