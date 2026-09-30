@@ -1,9 +1,11 @@
 import { SquarePen, Trash2 } from "lucide-react";
 import { ExportExcelSheet } from "./ExportExcelSheet";
+import { month, year } from "../storage/constant";
+import { useState } from "react";
 const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
 
+  const [monthChoice, setMonthChoice] = useState("")
 
-  
   return (
     <div className="bg-white rounded-2xl shadow-md my-2 p-2 md:p-2">
       <div className="mb-4">
@@ -11,10 +13,26 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
         <h2 className="text-lg md:text-xl font-semibold text-gray-800 ">
           Expenses
         </h2>
-        <div className="flex justify-end w-full">
+        <div className="flex justify-center w-full">
 
-        <h3 className="text-md md:text-md font-semibold text-gray-700 m-2 ml-0 cursor-pointer px-2 py-1 rounded-md hover:bg-green-300 ">Filter</h3>
-        <ExportExcelSheet  AllExpense ={AllExpense}/>
+          <h3 className="text-md md:text-md font-semibold text-gray-700 m-2 ml-0 cursor-pointer px-2 py-1 rounded-md hover:bg-green-300 ">Filter</h3>
+          <div>
+
+            <select
+              value={monthChoice}
+              onChange={(e) => setMonthChoice(e.target.value)}
+              className="w-full rounded-xl border max-h-10 overflow-y-scroll border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+            >
+              {month?.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <ExportExcelSheet AllExpense={AllExpense} />
         </div>
       </div>
       {AllExpense.length === 0 ? "Add your first expense to start tracking"

@@ -1,11 +1,5 @@
 // export const BASE_URL = "http://localhost:3000";
-import {
-  Wallet,
-  ShoppingCart,
-  Sparkles,
-  PiggyBank,
-  X,
-} from "lucide-react";
+import { Wallet, ShoppingCart, Sparkles, PiggyBank, X } from "lucide-react";
 
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -49,14 +43,14 @@ export const SUBCATEGORY = {
     "Electronics",
     "Gifting",
   ],
-  "Income":[
+  Income: [
     "Salary",
     "Bonus",
     "Mutual Fund",
     "Stocks Profit",
     "IPO Profit",
     "Deposit",
-    "Loan"
+    "Loan",
   ],
 
   "House Rent": [
@@ -144,35 +138,53 @@ export const EXPENSE_TYPE = [
   "Entertainment ",
 ];
 
+export const DASHBOARD_CARDS = [
+  {
+    Icon: Wallet,
+    title: "Balance",
+    color: "purple",
+    desc: " Amount available for this budget period. ",
+    value: 60000,
+  },
+  {
+    Icon: ShoppingCart,
+    title: "Grocery",
+    color: "green",
+    desc: "Maximum monthly expense",
+    value: 5000,
+  },
+  {
+    Icon: Sparkles,
+    title: "LifeStyle",
+    color: "yellow",
+    desc: "Maximum monthly expense",
+    value: 5000,
+  },
+  {
+    Icon: PiggyBank,
+    title: "Savings",
+    color: "blue",
+    desc: "Minimum amount you must save monthly ",
+    value: 5000,
+  },
+];
 
-  export const DASHBOARD_CARDS = [
-    {
-      Icon: Wallet,
-      title: "Balance",
-      color: "purple",
-      desc: " Amount available for this budget period. ",
-      value: 60000
-    },
-    {
-      Icon: ShoppingCart,
-      title: "Grocery",
-      color: "green",
-      desc: "Maximum monthly expense",
-      value: 5000
-    },
-    {
-      Icon: Sparkles,
-      title: "LifeStyle",
-      color: "yellow",
-      desc: "Maximum monthly expense",
-      value: 5000
-    },
-    {
-      Icon: PiggyBank,
-      title: "Savings",
-      color: "blue",
-      desc: "Minimum amount you must save monthly ",
-      value: 5000
-    },
-
-  ]
+export const month = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+export const year =[
+  2026,
+  2027,
+  2028
+]
