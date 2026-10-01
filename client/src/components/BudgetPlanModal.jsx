@@ -63,7 +63,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
                 const IconDiv = item?.Icon
                 return (
                   <>
-                    <div className="flex items-center gap-4 rounded-xl border border-gray-200 p-2 transition hover:border-purple-200 hover:bg-purple-50/30">
+                    <div key={item.title} className="flex items-center gap-4 rounded-xl border border-gray-200 p-2 transition hover:border-purple-200 hover:bg-purple-50/30">
                       <div className={`rounded-lg bg-${item.color}-100 p-2 text-${item.color}-600`}>
                         <IconDiv size={21} />
                       </div>

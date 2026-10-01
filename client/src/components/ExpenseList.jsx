@@ -1,11 +1,33 @@
 import { SquarePen, Trash2 } from "lucide-react";
 import { ExportExcelSheet } from "./ExportExcelSheet";
 import { month, year } from "../storage/constant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
 
-  const [monthChoice, setMonthChoice] = useState("")
+  const [monthChoice, setMonthChoice] = useState(month[new Date().getMonth()])
+  const [yearChoice, setYearChoice] = useState(new Date().getFullYear())
+  const [UpdatedList,setUpdatedList]=useState([])
 
+  console.log(monthChoice,yearChoice)
+
+  useEffect(()=>{
+    const filterList =  AllExpense.filter((item)=>{
+
+    const LogDate = new Date(item.date);
+    let logMonth = LogDate.getMonth()
+    let logYear = LogDate.getFullYear()
+    // console.log(month[logMonth+1])
+
+    return month[logMonth]== monthChoice && logYear == yearChoice
+    
+  })
+  console.log(filterList)
+
+  setUpdatedList(filterList)
+  },[monthChoice,yearChoice])
+  // getting the month
+  
+  
   return (
     <div className="bg-white rounded-2xl shadow-md my-2 p-2 md:p-2">
       <div className="mb-4">
@@ -16,26 +38,54 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
         <div className="flex justify-center w-full">
 
           <h3 className="text-md md:text-md font-semibold text-gray-700 m-2 ml-0 cursor-pointer px-2 py-1 rounded-md hover:bg-green-300 ">Filter</h3>
-          <div>
-
-            <select
-              value={monthChoice}
-              onChange={(e) => setMonthChoice(e.target.value)}
-              className="w-full rounded-xl border max-h-10 overflow-y-scroll border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
-            >
-              {month?.map((item) => {
-                return (
-                  <option key={item} value={item}>
+          
+          <div className="flex items-center gap-2.5">
+            {/* Month Selector */}
+            <div className="relative flex-1">
+              <select
+                value={monthChoice}
+                onChange={(e) => setMonthChoice(e.target.value)}
+                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+              >
+                {month?.map((item) => (
+                  <option key={item} value={item} className="text-slate-800">
                     {item}
                   </option>
-                );
-              })}
-            </select>
+                ))}
+              </select>
+              {/* Clean Chevron Arrow */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Year Selector */}
+            <div className="relative flex-1">
+              <select
+                value={yearChoice}
+                onChange={(e) => setYearChoice(e.target.value)}
+                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+              >
+                {year?.map((item) => (
+                  <option key={item} value={item} className="text-slate-800">
+                    {item}
+                  </option>
+                ))}
+              </select>
+              {/* Clean Chevron Arrow */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </div>
           <ExportExcelSheet AllExpense={AllExpense} />
         </div>
       </div>
-      {AllExpense.length === 0 ? "Add your first expense to start tracking"
+      {UpdatedList.length === 0 ? "Add your first expense to start tracking"
         :
         <div className="scrollbar-thumb-purple-700 scrollbar-track-sky-100 overflow-auto  rounded-xl border border-gray-200">
           <table className="min-w-full border-collapse text-sm ">
@@ -70,7 +120,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
             </thead>
 
             <tbody className="text-gray-700 text-xs">
-              {AllExpense?.map((item, index) => {
+              {UpdatedList?.map((item, index) => {
                 return (
 
                   <tr key={index} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
