@@ -1,10 +1,10 @@
-import { SquarePen, Trash2 } from "lucide-react";
+import { SquarePen, Trash2 ,FunnelX} from "lucide-react";
 import { ExportExcelSheet } from "./ExportExcelSheet";
 
 import { month, year } from "../storage/constant";
 
 import { useEffect, useMemo, useState } from "react";
-const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setMonthChoice, yearChoice, setYearChoice }) => {
+const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setMonthChoice, yearChoice, setYearChoice ,choosenCategory,setChoosenCategory}) => {
 
 
   // const [UpdatedList, setUpdatedList] = useState([])
@@ -22,10 +22,11 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
 
       const logMonth = month[logDate.getUTCMonth()];
       const logYear = String(logDate.getUTCFullYear());
-
-      return logMonth === monthChoice && logYear === String(yearChoice);
+    const matchesCategory =
+      choosenCategory === "" || item.category === choosenCategory;
+      return logMonth === monthChoice && logYear === String(yearChoice) && matchesCategory;
     });
-  }, [AllExpense, monthChoice, yearChoice]);
+  }, [AllExpense, monthChoice, yearChoice,choosenCategory]);
   
 
 
@@ -38,7 +39,13 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
         </h2>
         <div className="flex justify-center w-full">
 
-          <h3 className="text-md md:text-md font-semibold text-gray-700 m-2 ml-0 cursor-pointer px-2 py-1 rounded-md hover:bg-green-300 ">Filter</h3>
+          <div onClick={()=>setChoosenCategory("")}  className="flex items-center cursor-pointer hover:bg-purple-500   text-red-500 hover:text-gray-50 mr-3 px-1 rounded-md">
+          <div className="text-sm  font-semibold">{choosenCategory}</div>
+          <button className="text-sm md:text-md font-semibold m-2 ml-0  pl-2 py-1 rounded-md ">
+
+          <FunnelX size={16}/>
+          </button>
+          </div>
 
           {/* MOnth and year calculator */}
           <div className="flex items-center gap-2.5">
@@ -47,7 +54,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
               <select
                 value={monthChoice}
                 onChange={(e) => setMonthChoice(e.target.value)}
-                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-1 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
               >
                 {month?.map((item) => (
                   <option key={item} value={item} className="text-slate-800">
@@ -68,7 +75,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
               <select
                 value={yearChoice}
                 onChange={(e) => setYearChoice(e.target.value)}
-                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-1 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
               >
                 {year?.map((item) => (
                   <option key={item} value={item} className="text-slate-800">

@@ -41,9 +41,11 @@ const authenticateUser = (req, res, next) => {
     });
   }
 };
+
 app.get("/", (req, res) => {
   res.send("Homepage");
 });
+
 app.get("/auth", authenticateUser, (req, res) => {
   if (req.user.userId) {
     return res.json({ isUserLoggedIn: true });
@@ -212,6 +214,37 @@ app.patch("/expenses/:updateId", authenticateUser, async (req, res) => {
     console.log(e);
   }
 });
+
+
+// get user budget
+
+app.get("/budgets", authenticateUser, async (req, res) => {
+
+  try {
+    const user = await prisma.user.findUnique({
+      where:{
+        id:req.user.userId
+      },
+      select:{
+        budget:true
+      }
+    })
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return the budgets array or empty array if null
+    res.json(user.budget || []);
+
+  }
+  catch (e) {
+    console.log(e)
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+})
 
 app.listen(3000, () => {
   console.log("server is running");

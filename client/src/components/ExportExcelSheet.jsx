@@ -1,6 +1,8 @@
 
 import * as XLSX from 'xlsx';
 
+import {ArrowDownToLine} from "lucide-react"
+
 export const ExportExcelSheet = ({ UpdatedList }) => {
 
     const handleExport = () => {
@@ -41,6 +43,11 @@ export const ExportExcelSheet = ({ UpdatedList }) => {
         }
 
     return (
-            <h3 className="text-md md:text-md font-semibold text-gray-700 m-2 ml-0 cursor-pointer px-2 py-1 rounded-md hover:bg-green-300 " onClick={handleExport}>Export</h3>
+        <div className='flex items-center  hover:bg-purple-500   text-gray-700 hover:text-white rounded-md px-0.5 " onClick={handleExport}'>
+            <div className="text-md md:text-md font-semibold  ml-0 cursor-pointer pl-2 py-1 ">Export
+                
+            </div>
+            <ArrowDownToLine size={16} />
+            </div>
         )
     }

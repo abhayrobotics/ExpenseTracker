@@ -2,7 +2,7 @@ import { ShoppingBasket } from "lucide-react";
 import { useState } from "react";
 import BudgetPlanModal from "./BudgetPlanModal";
 
-const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
+const Dashboard = ({ dashboard_data, budgetData, handleLogout, choosenCategory,setChoosenCategory }) => {
 
   const { totalSpendNow, TotalSavings, Grocery, LifeStyle } = dashboard_data;
   // console.log(budgetData)
@@ -40,7 +40,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
         </div>
 
         {/* Savings */}
-        <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 shadow-sm">
+        <div  onClick={()=>setChoosenCategory("Savings")} className="bg-blue-50 hover:border-black  cursor-pointer border border-blue-100 rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium text-blue-700">Total Savings</p>
           <h3 className="text-xl md:text-2xl font-bold text-blue-800 mt-2">
             ₹{TotalSavings}
@@ -53,7 +53,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
         </div>
 
         {/* Need */}
-        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 shadow-sm">
+        <div onClick={()=>setChoosenCategory("Grocery")} className="bg-amber-50 border  hover:border-black cursor-pointer border-amber-100 rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium text-amber-700">Grocery </p>
           <h3 className="text-xl md:text-2xl font-bold text-amber-800 mt-2">
             ₹ {Grocery}
@@ -67,7 +67,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout }) => {
         </div>
 
         {/* Want */}
-        <div className="bg-fuchsia-50 border border-fuchsia-100 rounded-2xl p-4 shadow-sm">
+        <div  onClick={()=>setChoosenCategory("LifeStyle")} className="bg-fuchsia-50 border  hover:border-black cursor-pointer border-fuchsia-100 rounded-2xl p-4 shadow-sm">
           <p className="text-sm font-medium text-fuchsia-700">LifeStyle</p>
           <h3 className="text-xl md:text-2xl font-bold text-fuchsia-800 mt-2">
             ₹ {LifeStyle}
