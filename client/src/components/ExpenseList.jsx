@@ -1,14 +1,15 @@
 import { SquarePen, Trash2 } from "lucide-react";
 import { ExportExcelSheet } from "./ExportExcelSheet";
-import { month, year } from "../storage/constant";
-import { useEffect, useState } from "react";
-const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
 
-  const [monthChoice, setMonthChoice] = useState(month[new Date().getMonth()])
-  const [yearChoice, setYearChoice] = useState(new Date().getFullYear())
+import { month, year } from "../storage/constant";
+
+import { useEffect, useState } from "react";
+const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice,setMonthChoice ,yearChoice,setYearChoice}) => {
+
+ 
   const [UpdatedList,setUpdatedList]=useState([])
 
-  console.log(monthChoice,yearChoice)
+  // console.log(monthChoice,yearChoice)
 
   useEffect(()=>{
     const filterList =  AllExpense.filter((item)=>{
@@ -39,6 +40,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate }) => {
 
           <h3 className="text-md md:text-md font-semibold text-gray-700 m-2 ml-0 cursor-pointer px-2 py-1 rounded-md hover:bg-green-300 ">Filter</h3>
           
+          {/* MOnth and year calculator */}
           <div className="flex items-center gap-2.5">
             {/* Month Selector */}
             <div className="relative flex-1">

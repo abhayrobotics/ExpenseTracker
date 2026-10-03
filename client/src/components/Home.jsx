@@ -6,6 +6,7 @@ import ExpenseList from "./ExpenseList"
 import { fetchExpenses, createExpense, deleteExpense, updateExpense } from "../services/expenseServices"
 import Signin from "./Signin"
 import DatabaseError from "./DatabaseError"
+import { month, year } from "../storage/constant";
 import {
   Wallet,
   X,
@@ -26,7 +27,8 @@ const Home = ({ handleLogout }) => {
   // const [totalSpend,setTotalSpend] = useState(0)
 
   const [budgetData, setBudgetData] = useState([])
-
+ const [monthChoice, setMonthChoice] = useState(month[new Date().getMonth()])
+  const [yearChoice, setYearChoice] = useState(new Date().getFullYear())
 
 
   useEffect(() => {
@@ -242,14 +244,14 @@ const Home = ({ handleLogout }) => {
             </div>
           </div>
 
-          {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} /> : ""}
+          {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice}/> : ""}
           <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} budgetData={budgetData} />
 
           <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
           {displayAddExpense &&
             <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />
           }
-          <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+          <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate}  monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice}/>
           <div>{errorMessage}</div>
         </div>
       }

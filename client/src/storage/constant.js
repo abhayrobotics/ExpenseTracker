@@ -145,6 +145,8 @@ export const DASHBOARD_CARDS = [
     color: "purple",
     desc: " Amount available for this budget period. ",
     value: 60000,
+    month:"",
+    year:""
   },
   {
     Icon: ShoppingCart,

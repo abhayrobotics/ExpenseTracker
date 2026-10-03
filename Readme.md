@@ -201,3 +201,5 @@ sequenceDiagram
 | 2026-08-28 | Add/edit modal, dashboard aggregate calculations |
 | 2026-09-02 | Error-boundary + retry UX for DB/network failures |
 | 2026-09-10 | Monthly budget planning modal |
+
+bug: initial render does not show , list

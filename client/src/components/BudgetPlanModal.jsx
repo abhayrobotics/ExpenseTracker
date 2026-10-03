@@ -7,13 +7,17 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
+import {month,year} from "../storage/constant"
+
+const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice,setMonthChoice ,yearChoice,setYearChoice }) => {
 
 
- 
+
   const handleSubmit = () => {
-    setBudgetData(budgetData)
+    setBudgetData((prev)=>prev.map((element)=>({...element,month:monthChoice,year:yearChoice})))
     setShowBudget(false)
+    // stale data (better use temp varibal for updated then setState)
+    // console.log(budgetData)
   }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm">
@@ -35,6 +39,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
                 <p className="mt-1 text-xs text-gray-500">
                   Set your spending limits and savings target.
                 </p>
+                
               </div>
             </div>
 
@@ -50,11 +55,54 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
 
           {/* Limits */}
           <div>
-            <div className="mb-3">
+            <div className="mb-3 flex items-center">
               <h3 className="font-semibold text-gray-800">
                 Spending limits and Savings target.
               </h3>
+              {/* MOnth and year calculator */}
+                <div className="flex items-center gap-2.5 ml-4">
+                  {/* Month Selector */}
+                  <div className="relative flex-1">
+                    <select
+                      value={monthChoice}
+                      onChange={(e) => setMonthChoice(e.target.value)}
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                    >
+                      {month?.map((item) => (
+                        <option key={item} value={item} className="text-slate-800">
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                    {/* Clean Chevron Arrow */}
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
 
+                  {/* Year Selector */}
+                  <div className="relative flex-1">
+                    <select
+                      value={yearChoice}
+                      onChange={(e) => setYearChoice(e.target.value)}
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                    >
+                      {year?.map((item) => (
+                        <option key={item} value={item} className="text-slate-800">
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                    {/* Clean Chevron Arrow */}
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
 
             </div>
 
@@ -62,7 +110,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
               {budgetData?.map((item) => {
                 const IconDiv = item?.Icon
                 return (
-                  <>
+                  
                     <div key={item.title} className="flex items-center gap-4 rounded-xl border border-gray-200 p-2 transition hover:border-purple-200 hover:bg-purple-50/30">
                       <div className={`rounded-lg bg-${item.color}-100 p-2 text-${item.color}-600`}>
                         <IconDiv size={21} />
@@ -82,7 +130,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
                         <input
                           value={item.value}
                           onChange={(e) => setBudgetData((prev) => (prev.map((element) =>
-                            element.title == item.title ? { ...element, value: e.target.value } : element
+                            element.title == item.title ? { ...element, value: e.target.value } :element
                           )))}
                           type="number"
                           placeholder="3,000"
@@ -90,7 +138,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData }) => {
                         />
                       </div>
                     </div>
-                  </>
+                  
                 )
               })}
 
