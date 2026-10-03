@@ -68,7 +68,7 @@ const Home = ({ handleLogout }) => {
 
   const AddNewExpense = async (amount, category, subcategory, date, notes) => {
     try {
-      console.log("retrying")
+      // console.log("retrying")
       const newExpense = {
         // id: crypto.randomUUID(),
         amount,
