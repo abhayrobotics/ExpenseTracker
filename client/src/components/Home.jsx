@@ -27,7 +27,7 @@ const Home = ({ handleLogout }) => {
   // const [totalSpend,setTotalSpend] = useState(0)
 
   const [budgetData, setBudgetData] = useState([])
- const [monthChoice, setMonthChoice] = useState(month[new Date().getMonth()])
+  const [monthChoice, setMonthChoice] = useState(month[new Date().getMonth()])
   const [yearChoice, setYearChoice] = useState(new Date().getFullYear())
 
 
@@ -220,38 +220,46 @@ const Home = ({ handleLogout }) => {
       {showErrorPage?.status ? <DatabaseError retryAction={showErrorPage?.retryAction} /> :
 
         <div>
+          <div className="flex items-center rounded-xl  p-3 text-purple-600">
+            <Wallet size={24} />
+            <h2 className="pl-2 text-lg md:text-xl font-semibold text-gray-800">
+              Finances <span className="text-gray-300 text-sm">V2.0</span>
+            </h2>
+          </div>
+          
           <div className="flex items-center justify-between ">
+
 
             <div className="flex items-center rounded-xl  p-3 text-green-600">
               <ChartNoAxesCombined size={24} />
-              <h2 className="pl-2 text-lg md:text-xl font-semibold text-gray-800">
-                Analytics
+              <h2 className="pl-2 text-sm md:text-md font-semibold text-gray-800">
+                Dashboard
               </h2>
             </div>
 
             <div className="flex">
               <div className="flex items-center rounded-xl mx-2 bg-purple-100 hover:bg-purple-200  cursor-pointer px-2  text-purple-600">
                 <Wallet size={16} />
-                <button onClick={() => setShowBudget(true)} className=" cursor-pointer pl-2 text-md md:text-md  text-gray-800">Budget Plan</button>
+                <button onClick={() => setShowBudget(true)} className=" cursor-pointer pl-2 text-sm md:text-md  text-gray-800">Budget Plan</button>
               </div>
 
               <div className="flex items-center rounded-xl bg-red-50 hover:bg-red-100  cursor-pointer p-2  text-red-600">
                 <LogOut size={22} />
-                <h2 className="text-md md:text-md pl-2  text-gray-800 hover:cursor-pointer  hover:text-red-600" onClick={handleLogout}>
+                <h2 className="text-sm md:text-md pl-2  text-gray-800 hover:cursor-pointer  hover:text-red-600" onClick={handleLogout}>
                   Logout
                 </h2>
               </div>
             </div>
           </div>
 
-          {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice}/> : ""}
+          {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice} /> : ""}
           <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} budgetData={budgetData} />
 
           <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
           {displayAddExpense &&
             <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />
           }
-          <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate}  monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice}/>
+          <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice} />
           <div>{errorMessage}</div>
         </div>
       }
