@@ -6,7 +6,7 @@ export const ExportExcelSheet = ({ UpdatedList }) => {
     const handleExport = () => {
         console.log(UpdatedList)
         // 1. Map directly to your exact object schema
-        const rows = UpdatedList.map((item, index) => {
+        const rows = UpdatedList?.map((item, index) => {
             // Format ISO date strings (e.g. "2026-09-27T00:00:00.000Z" -> "2026-09-27")
             const formattedDate = item.date ? item.date.slice(0, 10) : '';
             const formattedCreatedAt = item.createdAt
