@@ -77,12 +77,12 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout, choosenCategory, 
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         {/* Balance */}
-        <div className="col-span-2   bg-linear-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-3 shadow-sm">
+        <div className="col-span-2   bg-linear-to-r from-emerald-800 to-teal-500 text-white rounded-2xl p-3 shadow-sm">
           <p className="text-sm font-medium opacity-90">Balance</p>
-          <h3 className="text-2xl md:text-3xl font-bold mt-2">₹{balance - totalSpendNow}</h3>
+          <h3 className="text-2xl md:text-3xl font-bold mt-2">₹{(balance - totalSpendNow).toLocaleString('en-IN')}</h3>
           <div className="flex justify-between items-center">
 
-            <p className="text-xs md:text-sm font-semibold text-gray-200 mt-2">Starting Balance: {`₹ ${balance}`} </p>
+            <p className="text-xs md:text-sm font-semibold text-gray-200 mt-2">Starting Balance: {`₹ ${balance?.toLocaleString('en-IN')}`} </p>
             <p className={`  p-1 rounded-sm ${Math.round(totalSpendNow / balance * 100) > 90 ? "text-red-600 bg-red-100  text-xs" : "text-green-600 bg-green-100 p-2 md:text-xs text-[10px]"}  mt-1`}>{` ${Math.round(totalSpendNow / balance * 100)}% Utilised`} </p>
           </div>
           {/* <p className="text-xs mt-2 opacity-80">Available after expenses</p> */}
@@ -90,7 +90,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout, choosenCategory, 
 
         {/* Small cards  */}
         {dashboardCards?.map((card) => (
-          <div onClick={() => setChoosenCategory(card.category)} className={`hover:border-black cursor-pointer ${card?.colorStyles?.bg} ${card?.border} border border-rose-100 rounded-2xl p-2 shadow-sm`}>
+          <div key={card?.id} onClick={() => setChoosenCategory(card.category)} className={`hover:border-black cursor-pointer ${card?.colorStyles?.bg} ${card?.border} border border-rose-100 rounded-2xl p-2 shadow-sm`}>
             <p className={`text-sm  font-medium ${card?.colorStyles?.title}`}>{card.title}</p>
             <h3 className={`text-sm md:text-md font-bold ${card?.colorStyles?.amount} mt-2`}>
               ₹{card?.amount}

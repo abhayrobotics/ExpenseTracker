@@ -32,7 +32,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
               </div>
 
               <div>
-                <h2 className="text-lg font-bold text-gray-900">
+                <h2 className=" text-md md:text-lg  font-bold text-gray-900">
                   Create Budget Plan
                 </h2>
 
@@ -56,7 +56,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
           {/* Limits */}
           <div>
             <div className="mb-3 flex items-center">
-              <h3 className="font-semibold text-gray-800">
+              <h3 className="font-semibold  text-sm text-gray-800">
                 Spending limits and Savings target.
               </h3>
               {/* MOnth and year calculator */}
@@ -147,12 +147,12 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
         </div>
 
         {/* Footer */}
-        <div className="flex gap-3 border-t border-gray-200 bg-gray-50 px-6 py-1">
-          <button onClick={() => setShowBudget(false)} className="flex-1 rounded-xl border border-gray-300 bg-white px-5 py-3 font-semibold text-gray-700 transition hover:bg-gray-100">
+        <div className="flex gap-3 border-t border-gray-200 bg-gray-50 px-4 py-2">
+          <button onClick={() => setShowBudget(false)} className="flex-1 rounded-xl border border-gray-800 bg-white px-2 py-1 font-semibold text-gray-700 transition hover:bg-gray-100">
             Cancel
           </button>
 
-          <button onClick={handleSubmit} className="flex-1 rounded-xl bg-purple-600 px-3 py-2 font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700 active:scale-[0.98]">
+          <button onClick={handleSubmit} className="flex-1 text-xs md:text-sm rounded-xl bg-purple-600 px-2 py-1 font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700 active:scale-[0.98]">
             Create Budget Plan
           </button>
         </div>

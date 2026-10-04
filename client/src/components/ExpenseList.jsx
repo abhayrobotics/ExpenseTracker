@@ -1,10 +1,10 @@
-import { SquarePen, Trash2 ,FunnelX} from "lucide-react";
+import { SquarePen, Trash2, FunnelX } from "lucide-react";
 import { ExportExcelSheet } from "./ExportExcelSheet";
 
 import { month, year } from "../storage/constant";
 
 import { useEffect, useMemo, useState } from "react";
-const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setMonthChoice, yearChoice, setYearChoice ,choosenCategory,setChoosenCategory}) => {
+const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setMonthChoice, yearChoice, setYearChoice, choosenCategory, setChoosenCategory }) => {
 
 
   // const [UpdatedList, setUpdatedList] = useState([])
@@ -22,12 +22,12 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
 
       const logMonth = month[logDate.getUTCMonth()];
       const logYear = String(logDate.getUTCFullYear());
-    const matchesCategory =
-      choosenCategory === "" || item.category === choosenCategory;
+      const matchesCategory =
+        choosenCategory === "" || item.category === choosenCategory;
       return logMonth === monthChoice && logYear === String(yearChoice) && matchesCategory;
     });
-  }, [AllExpense, monthChoice, yearChoice,choosenCategory]);
-  
+  }, [AllExpense, monthChoice, yearChoice, choosenCategory]);
+
 
 
   return (
@@ -39,13 +39,13 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
         </h2>
         <div className="flex justify-center w-full">
 
-          <div onClick={()=>setChoosenCategory("")}  className="flex items-center cursor-pointer hover:bg-purple-500   text-red-500 hover:text-gray-50 mr-3 px-1 rounded-md">
-          <div className="text-sm  font-semibold">{choosenCategory}</div>
-          <button className="text-sm md:text-md font-semibold m-2 ml-0  pl-2 py-1 rounded-md ">
+          <div onClick={() => setChoosenCategory("")} className={`flex items-center cursor-pointer hover:bg-purple-500  ${choosenCategory==""? "text-gray-800":"text-red-700"}  hover:text-gray-50 mr-3 px-1 rounded-md`}>
+            <div className="text-sm  font-semibold">{choosenCategory}</div>
+            <button className="text-sm md:text-md font-semibold m-2 ml-0  pl-2 py-1 rounded-md ">
 
-          <FunnelX size={16}/>
-          </button>
-          </div>
+              <FunnelX size={16} />
+            </button>
+          </div> 
 
           {/* MOnth and year calculator */}
           <div className="flex items-center gap-2.5">
@@ -96,65 +96,126 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
       </div>
       {UpdatedList.length === 0 ? "Add your first expense to start tracking"
         :
-        <div className="scrollbar-thumb-purple-700 scrollbar-track-sky-100 overflow-auto  rounded-xl border border-gray-200">
-          <table className="min-w-full border-collapse text-sm ">
-            <thead className="bg-amber-50 text-amber-800">
+        
+        <div className="w-full">
+          {/* ----------------- MOBILE VIEW: Cards (Hidden on Desktop) ----------------- */}
+          <div className="flex flex-col gap-2.5 md:hidden">
+            {UpdatedList?.map((item,index) => (
+              <div
+                key={item.createdAt || item.id}
+                className="flex items-center justify-between p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm"
+              >
+                {/* Left: Category info & Date/Notes */}
+                <div className="flex flex-col min-w-0 pr-3">
+                  <div className="flex items-center ">
+                  <span className="text-gray-800">{index+1}. </span>
+                  <span className="font-semibold text-gray-800 text-sm pl-1 truncate">
+                    {item?.subcategory || item?.category}
+                  </span>
+                  <span className="mx-2">•</span>
+                  <span className="text-xs text-gray-500 mt-0.5 truncate"> {item?.category}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs pl-2 text-gray-500 mt-0.5 truncate">
+                    {/* <span>{item?.category}</span> */}
+                    <span className="shrink-0 pl-2">{item?.date?.split("T")[0]}</span>
+                    
+                  {item?.notes && (
+                    <span>
+                    <span className="mx-2">•</span>
+                    <span className="text-[11px] text-gray-400 truncate mt-0.5">
+                      Note: {item.notes}
+                    </span>
+                    </span>
+                  )}
+                  </div>
+                </div>
 
-              <tr>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200 text-nowrap">
-                  Sl no.
-                </th>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
-                  Category
-                </th>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200 text-nowrap">
-                  Sub Category
-                </th>
-                <th className="px-2 py-1 text-right font-semibold border-b border-gray-200">
-                  Amount
-                </th>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
-                  Date
-                </th>
-                <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
-                  Notes
-                </th>
-                <th className="px-2 py-1 max-w-7.5 text-left font-semibold border-b border-gray-200">
-                </th>
-                <th className="px-2 py-1  max-w-7.5 text-left font-semibold border-b border-gray-200">
+                {/* Right: Amount & Actions */}
+                <div className="flex items-center gap-2.5 shrink-0">
+                  <span className="font-bold text-gray-900 text-sm">
+                    ₹{item?.amount}
+                  </span>
+                  <div className="flex items-center gap-1.5 pl-1.5 border-l border-gray-200">
+                    <button
+                      type="button"
+                      onClick={() => handleUpdate(item.id)}
+                      className="p-1 text-purple-500 hover:text-purple-700 active:scale-95"
+                    >
+                      <SquarePen size={16} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(item.id)}
+                      className="p-1 text-purple-500 hover:text-red-600 active:scale-95"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        {/* // Desktop view */}
+          <div className="hidden md:block scrollbar-thumb-purple-700 scrollbar-track-sky-100 overflow-auto  rounded-xl border border-gray-200">
+            <table className="min-w-full border-collapse text-sm ">
+              <thead className="bg-amber-50 text-amber-800">
 
-                </th>
-              </tr>
+                <tr>
+                  <th className="px-2 py-1 text-left font-semibold border-b border-gray-200 text-nowrap">
+                    Sl no.
+                  </th>
+                  <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
+                    Category
+                  </th>
+                  <th className="px-2 py-1 text-left font-semibold border-b border-gray-200 text-nowrap">
+                    Sub Category
+                  </th>
+                  <th className="px-2 py-1 text-right font-semibold border-b border-gray-200">
+                    Amount
+                  </th>
+                  <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
+                    Date
+                  </th>
+                  <th className="px-2 py-1 text-left font-semibold border-b border-gray-200">
+                    Notes
+                  </th>
+                  <th className="px-2 py-1 max-w-7.5 text-left font-semibold border-b border-gray-200">
+                  </th>
+                  <th className="px-2 py-1  max-w-7.5 text-left font-semibold border-b border-gray-200">
 
-            </thead>
+                  </th>
+                </tr>
 
-            <tbody className="text-gray-700 text-xs">
-              {UpdatedList?.map((item, index) => {
-                return (
+              </thead>
 
-                  <tr key={item.createdAt} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
-                    <td className="px-2 py-1 border-b border-gray-200">{index + 1}</td>
-                    <td className="px-2 py-1 border-b border-gray-200">{item?.category}</td>
-                    <td className="px-2 py-1 border-b border-gray-200">{item?.subcategory}</td>
-                    <td className="px-2 py-1 border-b border-gray-200 text-right font-medium">
-                      ₹{item?.amount}
-                    </td>
-                    <td className="px-2 py-1 border-b border-gray-200  text-nowrap ">{item?.date?.split("T")[0]}</td>
-                    <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
-                    <td className="px-2 py-1 border-b border-gray-200 " onClick={() => handleUpdate(item.id)}>
-                      <SquarePen size={18} className="text-purple-500 hover:text-purple-700 cursor-pointer" /></td>
-                    <td className="px-2 py-1 border-b border-gray-200" onClick={() => handleDelete(item.id)}>
-                      <Trash2 size={18} className="text-purple-500 hover:text-red-700 cursor-pointer" /></td>
-                    {/* <td className="px-2 py-1 border-b border-gray-200"></td> */}
-                  </tr>)
-              })}
+              <tbody className="text-gray-700 text-xs">
+                {UpdatedList?.map((item, index) => {
+                  return (
 
-            </tbody>
-          </table>
-        </div>
+                    <tr key={item.createdAt} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
+                      <td className="px-2 py-1 border-b border-gray-200">{index + 1}</td>
+                      <td className="px-2 py-1 border-b border-gray-200">{item?.category}</td>
+                      <td className="px-2 py-1 border-b border-gray-200">{item?.subcategory}</td>
+                      <td className="px-2 py-1 border-b border-gray-200 text-right font-medium">
+                        ₹{item?.amount}
+                      </td>
+                      <td className="px-2 py-1 border-b border-gray-200  text-nowrap ">{item?.date?.split("T")[0]}</td>
+                      <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
+                      <td className="px-2 py-1 border-b border-gray-200 " onClick={() => handleUpdate(item.id)}>
+                        <SquarePen size={18} className="text-purple-500 hover:text-purple-700 cursor-pointer" /></td>
+                      <td className="px-2 py-1 border-b border-gray-200" onClick={() => handleDelete(item.id)}>
+                        <Trash2 size={18} className="text-purple-500 hover:text-red-700 cursor-pointer" /></td>
+                      {/* <td className="px-2 py-1 border-b border-gray-200"></td> */}
+                    </tr>)
+                })}
+
+              </tbody>
+            </table>
+          </div>
+          </div>
       }
-    </div>
+        </div>
   );
 };
 
-export default ExpenseList;
+      export default ExpenseList;
