@@ -85,9 +85,11 @@ export const SUBCATEGORY = {
     "Vegetables",
     "Fruits",
     "Rice & Atta",
+    "Bread",
     "Oil",
     "Spices",
     "Snacks",
+    "Dairy items",
     "Household Items",
   ],
 
