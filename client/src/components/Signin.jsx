@@ -62,9 +62,10 @@ const Signin = ({ signInStatus }) => {
                     </div>
 
                     <h1 className="text-3xl font-bold text-purple-700">
-                        Expense Tracker
+                        FinGo
                     </h1>
 
+   
                     <p className="text-gray-500 mt-2">
                         Sign in to manage your expenses
                     </p>

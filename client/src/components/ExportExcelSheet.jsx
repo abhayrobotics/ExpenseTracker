@@ -44,7 +44,7 @@ export const ExportExcelSheet = ({ UpdatedList }) => {
 
     return (
         <div className='flex items-center  hover:bg-purple-500   text-gray-700 hover:text-white rounded-md px-0.5 " onClick={handleExport}'>
-            <div className="text-md md:text-md font-semibold  ml-0 cursor-pointer pl-2 py-1 ">Export
+            <div className=" text-sm md:text-md md:text-md font-semibold  ml-0 cursor-pointer px-1 py-1 ">Export
                 
             </div>
             <ArrowDownToLine size={16} />

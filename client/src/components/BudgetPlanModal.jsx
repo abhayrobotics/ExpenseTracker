@@ -60,7 +60,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
                 Spending limits and Savings target.
               </h3>
               {/* MOnth and year calculator */}
-                <div className="flex items-center gap-2.5 ml-4">
+                <div className="flex items-center gap-2.5 ml-0.5">
                   {/* Month Selector */}
                   <div className="relative flex-1">
                     <select
@@ -113,14 +113,14 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
                   
                     <div key={item.title} className="flex items-center gap-4 rounded-xl border border-gray-200 p-2 transition hover:border-purple-200 hover:bg-purple-50/30">
                       <div className={`rounded-lg bg-${item.color}-100 p-2 text-${item.color}-600`}>
-                        <IconDiv size={21} />
+                        <IconDiv size={16} />
                       </div>
 
                       <div className="flex-1">
-                        <p className="font-semibold text-gray-800">
+                        <p className="font-semibold text-gray-800 text-sm">
                           {item.title}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] text-gray-400">
                           {item.desc}
                         </p>
                       </div>
@@ -153,7 +153,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
           </button>
 
           <button onClick={handleSubmit} className="flex-1 text-sm rounded-xl bg-purple-600 px-2 py-1 font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700 active:scale-[0.98]">
-            Create Budget Plan
+            Create Budget 
           </button>
         </div>
 

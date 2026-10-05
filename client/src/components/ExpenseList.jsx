@@ -48,7 +48,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
           </div> 
 
           {/* MOnth and year calculator */}
-          
+
           <div className="flex items-center gap-2.5">
             {/* Month Selector */}
             <div className="relative flex-1">
@@ -107,7 +107,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                 className="flex items-center justify-between p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm"
               >
                 {/* Left: Category info & Date/Notes */}
-                <div className="flex flex-col min-w-0 pr-3">
+                <div className="flex flex-col  min-w-0 pr-3">
                   <div className="flex items-center ">
                   <span className="text-gray-800">{index+1}. </span>
                   <span className="font-semibold text-gray-800 text-sm pl-1 truncate">

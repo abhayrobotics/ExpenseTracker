@@ -224,8 +224,8 @@ const Home = ({ handleLogout }) => {
         <div>
           <div className="flex items-center rounded-xl  p-3 text-purple-600">
             <Wallet size={24} />
-            <h2 className="pl-2 text-md md:text-lg font-semibold text-gray-800">
-              Finances <span className="text-gray-300 text-[10px] mdtext-sm">V2.1</span>
+            <h2 className="pl-2 text-md md:text-lg font-semibold text-purple-600">
+              FinGo <span className="text-gray-300 text-[10px] mdtext-sm">V2.1</span>
             </h2>
           </div>
           
@@ -242,12 +242,12 @@ const Home = ({ handleLogout }) => {
             <div className="flex">
               <div className="flex items-center rounded-xl mx-2 bg-purple-100 hover:bg-purple-200  cursor-pointer px-2  text-purple-600">
                 <Wallet size={16} />
-                <button onClick={() => setShowBudget(true)} className=" cursor-pointer pl-2 text-sm md:text-md  text-gray-800">Budget Plan</button>
+                <button onClick={() => setShowBudget(true)} className=" cursor-pointer pl-2 text-xs md:text-md  text-gray-800">Budget Plan</button>
               </div>
 
               <div className="flex items-center rounded-xl bg-red-50 hover:bg-red-100  cursor-pointer p-2  text-red-600">
-                <LogOut size={22} />
-                <h2 className="text-sm md:text-md pl-2  text-gray-800 hover:cursor-pointer  hover:text-red-600" onClick={handleLogout}>
+                <LogOut size={16} />
+                <h2 className="text-xs md:text-md pl-2  text-gray-800 hover:cursor-pointer  hover:text-red-600" onClick={handleLogout}>
                   Logout
                 </h2>
               </div>
