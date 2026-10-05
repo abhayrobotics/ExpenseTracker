@@ -225,7 +225,7 @@ const Home = ({ handleLogout }) => {
           <div className="flex items-center rounded-xl  p-3 text-purple-600">
             <Wallet size={24} />
             <h2 className="pl-2 text-md md:text-lg font-semibold text-gray-800">
-              Finances <span className="text-gray-300 text-[10px] mdtext-sm">V2.0</span>
+              Finances <span className="text-gray-300 text-[10px] mdtext-sm">V2.1</span>
             </h2>
           </div>
           
