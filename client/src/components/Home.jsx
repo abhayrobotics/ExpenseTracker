@@ -30,7 +30,7 @@ const Home = ({ handleLogout }) => {
   const [monthChoice, setMonthChoice] = useState(month[new Date().getMonth()])
   const [yearChoice, setYearChoice] = useState(new Date().getFullYear())
 
-  const [choosenCategory,setChoosenCategory]= useState("")
+  const [choosenCategory, setChoosenCategory] = useState("")
 
 
   useEffect(() => {
@@ -39,19 +39,36 @@ const Home = ({ handleLogout }) => {
     loadExpenses()
     setBudgetData(DASHBOARD_CARDS)
   }, [])
+  useEffect(()=>{
+    
+    setBudgetData(DASHBOARD_CARDS)
+  },[AllExpense])
 
   // Dashboard Data
+  const expenseMonth =(item)=>  month[new Date(item?.date).getMonth()]
+  const expenseYear =(item)=> new Date(item?.date).getFullYear() 
 
-  const totalSpendNow = AllExpense.reduce((sum, item) => sum + item.amount, 0)
-  const TotalSavings = AllExpense.filter((item) => item.category === "Savings").reduce((sum, item) => sum + item.amount, 0)
-  const Grocery = AllExpense.filter((item) => item.category === "Grocery").reduce((sum, item) => sum + item.amount, 0)
-  const LifeStyle = AllExpense.filter((item) => item.category === "LifeStyle").reduce((sum, item) => sum + item.amount, 0)
+  // console.log(expenseMonth,monthChoice,expenseYear)
+  const totalSpendNow = AllExpense.filter((item)=>  expenseMonth(item) === monthChoice
+    && expenseYear(item) === yearChoice).reduce((sum, item) => sum + item.amount, 0)
+
+  const TotalSavings = AllExpense.filter((item) => item.category === "Savings"
+    && expenseMonth(item) === monthChoice
+    && expenseYear(item) === yearChoice
+  ).reduce((sum, item) => sum + item.amount, 0)
+
+  const Grocery = AllExpense.filter((item) => item.category === "Grocery"  && expenseMonth === monthChoice
+    && expenseYear === yearChoice).reduce((sum, item) => sum + item.amount, 0)
+  const LifeStyle = AllExpense.filter((item) => item.category === "LifeStyle"  && expenseMonth === monthChoice
+    && expenseYear === yearChoice).reduce((sum, item) => sum + item.amount, 0)
   const dashboard_data = {
     totalSpendNow,
     TotalSavings,
     Grocery,
     LifeStyle
   }
+  // console.log(AllExpense)
+  // setBudgetData(DASHBOARD_CARDS)
 
   const sendBudgetData = (data) => {
 
@@ -228,7 +245,7 @@ const Home = ({ handleLogout }) => {
               FinGo <span className="text-gray-300 text-[10px] mdtext-sm">V2.1</span>
             </h2>
           </div>
-          
+
           <div className="flex items-center justify-between ">
 
 
@@ -255,13 +272,13 @@ const Home = ({ handleLogout }) => {
           </div>
 
           {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice} /> : ""}
-          <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} budgetData={budgetData}  setChoosenCategory={setChoosenCategory}/>
+          <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} budgetData={budgetData} setChoosenCategory={setChoosenCategory} />
 
           <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
           {displayAddExpense &&
             <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />
           }
-          <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice}  setChoosenCategory={setChoosenCategory} choosenCategory={choosenCategory}/>
+          <ExpenseList AllExpense={AllExpense} handleDelete={handleDelete} handleUpdate={handleUpdate} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice} setChoosenCategory={setChoosenCategory} choosenCategory={choosenCategory} />
           <div>{errorMessage}</div>
         </div>
       }
