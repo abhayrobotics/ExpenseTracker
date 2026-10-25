@@ -242,10 +242,9 @@ const Home = ({ handleLogout }) => {
           <div className="flex items-center rounded-xl  p-3 text-purple-600">
             <Wallet size={24} />
             <h2 className="pl-2 text-md md:text-lg font-semibold text-purple-600">
-              FinGo <span className="text-gray-300 text-[10px] mdtext-sm">V2.1</span>
+              FinGo <span className="text-gray-400 text-[10px] mdtext-sm">V2.1</span>
             </h2>
           </div>
-
           <div className="flex items-center justify-between ">
 
 
@@ -274,7 +273,7 @@ const Home = ({ handleLogout }) => {
           {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice} /> : ""}
           <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} budgetData={budgetData} setChoosenCategory={setChoosenCategory} />
 
-          <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer ">  ➕ Add Expense </div>
+          <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer " aria-label="Add Expense">  ➕ Add Expense </div>
           {displayAddExpense &&
             <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />
           }

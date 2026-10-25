@@ -41,7 +41,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
 
           <div onClick={() => setChoosenCategory("")} className={`flex items-center cursor-pointer hover:bg-purple-500  ${choosenCategory==""? "text-gray-800":"text-red-700"}  hover:text-gray-50 mr-3 px-1 rounded-md`}>
             <div className="text-sm  font-semibold">{choosenCategory}</div>
-            <button className="text-sm md:text-md font-semibold m-2 ml-0  pl-2 py-1 rounded-md ">
+            <button className="text-sm md:text-md font-semibold m-2 ml-0  pl-2 py-1 rounded-md " aria-label="Clear Filter">
 
               <FunnelX size={16} />
             </button>
@@ -55,7 +55,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
               <select
                 value={monthChoice}
                 onChange={(e) => setMonthChoice(e.target.value)}
-                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-1 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-1 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer" aria-label="month"
               >
                 {month?.map((item) => (
                   <option key={item} value={item} className="text-slate-800">
@@ -76,7 +76,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
               <select
                 value={yearChoice}
                 onChange={(e) => setYearChoice(e.target.value)}
-                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-1 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-1 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer" aria-label="year"
               >
                 {year?.map((item) => (
                   <option key={item} value={item} className="text-slate-800">
@@ -141,6 +141,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                       type="button"
                       onClick={() => handleUpdate(item.id)}
                       className="p-1 text-purple-500 hover:text-purple-700 active:scale-95"
+                      aria-label="Update Button"
                     >
                       <SquarePen size={16} />
                     </button>
@@ -148,6 +149,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                       type="button"
                       onClick={() => handleDelete(item.id)}
                       className="p-1 text-purple-500 hover:text-red-600 active:scale-95"
+                      aria-label="delete Button"
                     >
                       <Trash2 size={16} />
                     </button>

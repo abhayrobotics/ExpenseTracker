@@ -103,7 +103,7 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout, choosenCategory, 
             <div className="flex justify-between items-center">
 
               <p className="text-[10px] md:text-xs text-fuchsia-600">Budget: {`₹ ${card.budget}`} </p>
-              <p className={`  p-1 rounded-sm ${Math.round(card?.amount / card?.budget * 100) < 100 ? "text-red-600 bg-red-100 p-0.5 rounded-md text-xs" : "text-green-600 bg-green-100 p-1 text-[10px]"}  `}>{` ${Math.round(card?.amount / card?.budget * 100)}% ${card?.isSavings?"Saved":"Utilised"}`} </p>
+              <p className={`  p-1 rounded-sm ${Math.round(card?.amount / card?.budget * 100) > 100  && (card?.id !=  "savings") ? "text-red-600 bg-red-100 p-0.5 rounded-md text-xs" : "text-green-700 bg-green-100 p-1 text-[10px]"}  `}>{` ${Math.round(card?.amount / card?.budget * 100)}% ${card?.isSavings?"Saved":"Utilised"}`} </p>
             </div>
             }
           </div>
