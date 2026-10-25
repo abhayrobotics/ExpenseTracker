@@ -11,9 +11,11 @@ import {
   Wallet,
   X,
   LogOut,
-  ChartNoAxesCombined
+  ChartNoAxesCombined,ShoppingCart, Sparkles, PiggyBank,
 } from "lucide-react";
-import { DASHBOARD_CARDS } from "../storage/constant"
+
+
+// import { DASHBOARD_CARDS } from "../storage/constant"
 
 const Home = ({ handleLogout }) => {
 
@@ -31,6 +33,39 @@ const Home = ({ handleLogout }) => {
   const [yearChoice, setYearChoice] = useState(new Date().getFullYear())
 
   const [choosenCategory, setChoosenCategory] = useState("")
+
+const DASHBOARD_CARDS = [
+  {
+    Icon: Wallet,
+    title: "Balance",
+    color: "purple",
+    desc: " Amount available for this budget period. ",
+    value: 60000,
+    month:monthChoice,
+    year:yearChoice
+  },
+  {
+    Icon: ShoppingCart,
+    title: "Grocery",
+    color: "green",
+    desc: "Maximum monthly expense",
+    value: 5000,
+  },
+  {
+    Icon: Sparkles,
+    title: "LifeStyle",
+    color: "yellow",
+    desc: "Maximum monthly expense",
+    value: 5000,
+  },
+  {
+    Icon: PiggyBank,
+    title: "Savings",
+    color: "blue",
+    desc: "Minimum amount you must save monthly ",
+    value: 5000,
+  },
+];
 
 
   useEffect(() => {

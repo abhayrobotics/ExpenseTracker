@@ -14,10 +14,11 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
 
 
   const handleSubmit = () => {
-    setBudgetData((prev)=>prev.map((element)=>({...element,month:monthChoice,year:yearChoice})))
+    // const newBudget = {...budgetData,month:monthChoice,year:yearChoice}
+    // setBudgetData(newBudget)
     setShowBudget(false)
     // stale data (better use temp varibal for updated then setState)
-    // console.log(budgetData)
+    console.log(budgetData)
   }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm">
