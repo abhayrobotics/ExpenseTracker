@@ -151,6 +151,8 @@ export const signUpRequest = async (name, email, password) => {
     })
     const result = await response.json()
     console.log(result)
+
+    // localStorage.setItem("email",email)
     return result
   } catch (e) {
     console.log(e)

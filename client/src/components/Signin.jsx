@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginRequest, signUpRequest } from "../services/expenseServices";
 import { Wallet } from "lucide-react";
 import { BASE_URL } from "../storage/constant";
@@ -8,11 +8,16 @@ const Signin = ({ signInStatus }) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const [remember,setRemember] = useState(false)
     const [showSignin, setShowSignin] = useState(true)
     const [loading, setLoading] = useState(false)
     const [message,setMessage] =useState("")
 
+    useEffect(()=>{
+        if(localStorage.getItem("email")){
+            setEmail(localStorage.getItem("email"))
+        }
+    },[])
     const signInHandler = async () => {
         setLoading(true)
         try {
@@ -23,6 +28,12 @@ const Signin = ({ signInStatus }) => {
                 console.log("signin Success");
                 signInStatus(true);
                 localStorage.setItem("token", isLogin.token);
+
+                
+                if(remember){
+                    
+                    localStorage.setItem("email",email)
+                }
             } else {
                 console.log(isLogin);
                 setLoading(false)
@@ -115,6 +126,13 @@ const Signin = ({ signInStatus }) => {
                         className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                     />
                 </div>
+                <div className="mb-3 flex items-center">
+                    <input type="checkbox" checked={remember}  style={{ colorScheme: 'light' }} onChange={(e)=>setRemember(e.target.checked)} className="w-3 h-3 mr-2  accent-purple-600 cursor-pointer"/>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Remember me
+                    </label>
+                </div>
+                
 
                 {/* Button */}
                 {showSignin ?

@@ -49,17 +49,17 @@ const Home = ({ handleLogout }) => {
   const expenseYear =(item)=> new Date(item?.date).getFullYear() 
 
   // console.log(expenseMonth,monthChoice,expenseYear)
-  const totalSpendNow = AllExpense.filter((item)=>  expenseMonth(item) === monthChoice
+  const totalSpendNow = AllExpense?.filter((item)=>  expenseMonth(item) === monthChoice
     && expenseYear(item) === yearChoice).reduce((sum, item) => sum + item.amount, 0)
 
-  const TotalSavings = AllExpense.filter((item) => item.category === "Savings"
+  const TotalSavings = AllExpense?.filter((item) => item.category === "Savings"
     && expenseMonth(item) === monthChoice
     && expenseYear(item) === yearChoice
   ).reduce((sum, item) => sum + item.amount, 0)
 
-  const Grocery = AllExpense.filter((item) => item.category === "Grocery"   && expenseMonth(item) === monthChoice
+  const Grocery = AllExpense?.filter((item) => item.category === "Grocery"   && expenseMonth(item) === monthChoice
     && expenseYear(item) === yearChoice).reduce((sum, item) => sum + item.amount, 0)
-  const LifeStyle = AllExpense.filter((item) => item.category === "LifeStyle"   && expenseMonth(item) === monthChoice
+  const LifeStyle = AllExpense?.filter((item) => item.category === "LifeStyle"   && expenseMonth(item) === monthChoice
     && expenseYear(item) === yearChoice).reduce((sum, item) => sum + item.amount, 0)
   const dashboard_data = {
     totalSpendNow,
