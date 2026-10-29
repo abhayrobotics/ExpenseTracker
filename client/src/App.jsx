@@ -4,7 +4,7 @@ import './App.css'
 import Home from "./components/Home"
 import { useEffect } from 'react';
 import Signin from './components/Signin';
-import { authencicateUser } from './services/expenseServices';
+import { authenticateUser } from './services/expenseServices';
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
     if (!!localStorage.getItem("token")) {
 
       const token = localStorage.getItem("token")
-      const isvalidated = await authencicateUser(token)
+      const isvalidated = await authenticateUser(token)
       setIsAuthenticated(isvalidated)
     }
     else{

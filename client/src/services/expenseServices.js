@@ -52,7 +52,7 @@ export const createExpense = async (data, token) => {
   }
 }
 
-// Delete requesto with ID
+// Delete request to with ID
 export const deleteExpense = async (id, token) => {
   console.log(id)
   try {
@@ -120,7 +120,7 @@ export const loginRequest = async (email, password) => {
     })
 
     const result = await checkLogin.json();
-    console.log(result)
+    // console.log(result)
     return result;
   }
   catch (e) {
@@ -129,7 +129,7 @@ export const loginRequest = async (email, password) => {
   }
 }
 
-// signu
+// signup
 export const signUpRequest = async (name, email, password) => {
   try {
 
@@ -159,9 +159,36 @@ export const signUpRequest = async (name, email, password) => {
     throw e
   }
 }
+// save user budget 
+export const userBudget = async (token,budget) =>{
+
+  try{
+
+    const payload = {budget}
+
+    const response = await fetch(BASE_URL +"/userData",{
+      method:"PATCH",
+       headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
+
+    })
+    const result = await response.json()
+    console.log(result)
+    return result
+  }
+  catch(e){
+    console.log(e)
+    throw e
+
+  }
+}
+
 
 // verify that toekn present belongs toactive logged in user
-export const authencicateUser = async (token) => {
+export const authenticateUser = async (token) => {
 
   try{
 

@@ -215,6 +215,25 @@ app.patch("/expenses/:updateId", authenticateUser, async (req, res) => {
   }
 });
 
+// update user Info
+
+app.patch("/userData",authenticateUser, async (req,res)=>{
+  const {budget} = req.body;
+  console.log(req.params)
+  try{
+    const updatedUserData = await prisma.user.update({
+      where:{id:req.user.userId},
+      data:{
+        budget:budget
+      }
+    })
+    res.status(200).json(updatedUserData)
+
+  }catch(e){
+    console.log(e)
+  }
+})
+
 
 // get user budget
 

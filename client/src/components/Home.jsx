@@ -102,15 +102,6 @@ const DASHBOARD_CARDS = [
     Grocery,
     LifeStyle
   }
-  // console.log(AllExpense)
-  // setBudgetData(DASHBOARD_CARDS)
-
-  const sendBudgetData = (data) => {
-
-  }
-  // console.log(totalSpendNow)
-
-
 
   // Closing the popUp
   const onClose = () => {

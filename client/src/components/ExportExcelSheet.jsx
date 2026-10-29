@@ -6,7 +6,7 @@ import {ArrowDownToLine} from "lucide-react"
 export const ExportExcelSheet = ({ UpdatedList }) => {
 
     const handleExport = () => {
-        console.log(UpdatedList)
+        // console.log(UpdatedList)
         // 1. Map directly to your exact object schema
         const rows = UpdatedList?.map((item, index) => {
             // Format ISO date strings (e.g. "2026-09-27T00:00:00.000Z" -> "2026-09-27")
@@ -43,7 +43,7 @@ export const ExportExcelSheet = ({ UpdatedList }) => {
         }
 
     return (
-        <div className='flex items-center  hover:bg-purple-500   text-gray-700 hover:text-white rounded-md px-0.5 " onClick={handleExport}'>
+        <div className='flex items-center  hover:bg-purple-500   text-gray-700 hover:text-white rounded-md px-0.5 ' onClick={handleExport}>
             <div className=" text-sm md:text-md md:text-md font-semibold  ml-0 cursor-pointer px-1 py-1 ">Export
                 
             </div>

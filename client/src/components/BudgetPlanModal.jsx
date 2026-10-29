@@ -7,19 +7,38 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import {month,year} from "../storage/constant"
+import { month, year } from "../storage/constant"
+import { userBudget } from "../services/expenseServices";
 
-const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice,setMonthChoice ,yearChoice,setYearChoice }) => {
+const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice, setMonthChoice, yearChoice, setYearChoice }) => {
 
 
 
-  const handleSubmit = () => {
-    // const newBudget = {...budgetData,month:monthChoice,year:yearChoice}
-    // setBudgetData(newBudget)
+  const handleSubmit = async () => {
+    const newBudget =budgetData.map((item,index)=>{
+      if(index==0){
+        return {...item,month:monthChoice,year:yearChoice}
+      }
+       return item 
+    })
+    setBudgetData(newBudget)
     setShowBudget(false)
-    // stale data (better use temp varibal for updated then setState)
-    console.log(budgetData)
+    console.log(newBudget)
+    await saveUserData(newBudget)
+    
   }
+  const saveUserData = async (newBudget) => {
+      try{
+        
+      const token = localStorage.getItem("token")
+        const confirmData = await userBudget(token,newBudget)
+        console.log(confirmData)
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm">
       <div className="w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-2xl">
@@ -40,7 +59,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
                 <p className="mt-1 text-xs text-gray-500">
                   Set your spending limits and savings target.
                 </p>
-                
+
               </div>
             </div>
 
@@ -61,49 +80,49 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
                 Spending limits and Savings target.
               </h3>
               {/* MOnth and year calculator */}
-                <div className="flex items-center gap-2.5 ml-0.5">
-                  {/* Month Selector */}
-                  <div className="relative flex-1">
-                    <select
-                      value={monthChoice}
-                      onChange={(e) => setMonthChoice(e.target.value)}
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
-                    >
-                      {month?.map((item) => (
-                        <option key={item} value={item} className="text-slate-800">
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                    {/* Clean Chevron Arrow */}
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Year Selector */}
-                  <div className="relative flex-1">
-                    <select
-                      value={yearChoice}
-                      onChange={(e) => setYearChoice(e.target.value)}
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
-                    >
-                      {year?.map((item) => (
-                        <option key={item} value={item} className="text-slate-800">
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                    {/* Clean Chevron Arrow */}
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
+              <div className="flex items-center gap-2.5 ml-0.5">
+                {/* Month Selector */}
+                <div className="relative flex-1">
+                  <select
+                    value={monthChoice}
+                    onChange={(e) => setMonthChoice(e.target.value)}
+                    className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                  >
+                    {month?.map((item) => (
+                      <option key={item} value={item} className="text-slate-800">
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                  {/* Clean Chevron Arrow */}
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
                   </div>
                 </div>
+
+                {/* Year Selector */}
+                <div className="relative flex-1">
+                  <select
+                    value={yearChoice}
+                    onChange={(e) => setYearChoice(e.target.value)}
+                    className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm font-medium text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 cursor-pointer"
+                  >
+                    {year?.map((item) => (
+                      <option key={item} value={item} className="text-slate-800">
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                  {/* Clean Chevron Arrow */}
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
 
             </div>
 
@@ -111,35 +130,35 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
               {budgetData?.map((item) => {
                 const IconDiv = item?.Icon
                 return (
-                  
-                    <div key={item.title} className="flex items-center gap-4 rounded-xl border border-gray-200 p-2 transition hover:border-purple-200 hover:bg-purple-50/30">
-                      <div className={`rounded-lg bg-${item.color}-100 p-2 text-${item.color}-600`}>
-                        <IconDiv size={16} />
-                      </div>
 
-                      <div className="flex-1">
-                        <p className="font-semibold text-gray-800 text-sm">
-                          {item.title}
-                        </p>
-                        <p className="text-[10px] text-gray-400">
-                          {item.desc}
-                        </p>
-                      </div>
-
-                      <div className="flex w-32 items-center rounded-lg border border-gray-300 bg-white px-3">
-                        <span className="text-sm text-gray-400">₹</span>
-                        <input
-                          value={item.value}
-                          onChange={(e) => setBudgetData((prev) => (prev.map((element) =>
-                            element.title == item.title ? { ...element, value: e.target.value } :element
-                          )))}
-                          type="number"
-                          placeholder="3,000"
-                          className="w-full bg-transparent px-2 py-2 text-right text-sm outline-none"
-                        />
-                      </div>
+                  <div key={item.title} className="flex items-center gap-4 rounded-xl border border-gray-200 p-2 transition hover:border-purple-200 hover:bg-purple-50/30">
+                    <div className={`rounded-lg bg-${item.color}-100 p-2 text-${item.color}-600`}>
+                      <IconDiv size={16} />
                     </div>
-                  
+
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-800 text-sm">
+                        {item.title}
+                      </p>
+                      <p className="text-[10px] text-gray-400">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    <div className="flex w-32 items-center rounded-lg border border-gray-300 bg-white px-3">
+                      <span className="text-sm text-gray-400">₹</span>
+                      <input
+                        value={item.value}
+                        onChange={(e) => setBudgetData((prev) => (prev.map((element) =>
+                          element.title == item.title ? { ...element, value: e.target.value } : element
+                        )))}
+                        type="number"
+                        placeholder="3,000"
+                        className="w-full bg-transparent px-2 py-2 text-right text-sm outline-none"
+                      />
+                    </div>
+                  </div>
+
                 )
               })}
 
@@ -154,7 +173,7 @@ const BudgetPlanModal = ({ setShowBudget, budgetData, setBudgetData, monthChoice
           </button>
 
           <button onClick={handleSubmit} className="flex-1 text-sm rounded-xl bg-purple-600 px-2 py-1 font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700 active:scale-[0.98]">
-            Create Budget 
+            Create Budget
           </button>
         </div>
 

@@ -5,8 +5,9 @@ import BudgetPlanModal from "./BudgetPlanModal";
 const Dashboard = ({ dashboard_data, budgetData, handleLogout, choosenCategory, setChoosenCategory }) => {
 
   const { totalSpendNow, TotalSavings, Grocery, LifeStyle } = dashboard_data;
-  // console.log(budgetData)
+  console.log(budgetData)
   // console.log(budgetData?.find((item)=>item.title=="Balance").value)
+
 
   const balance = budgetData?.find((item) => item?.title == "Balance")?.value;
   const groceryBudget = budgetData?.find((item) => item.title == "Grocery")?.value
