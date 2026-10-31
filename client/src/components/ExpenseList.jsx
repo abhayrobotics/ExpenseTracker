@@ -134,7 +134,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                 {/* Right: Amount & Actions */}
                 <div className="flex items-center gap-2.5 shrink-0">
                   <span className="font-bold text-gray-900 text-sm">
-                    ₹{item?.amount}
+                    ₹{item?.amount.toLocaleString('en-IN')}
                   </span>
                   <div className="flex items-center gap-1.5 pl-1.5 border-l border-gray-200">
                     <button
@@ -203,7 +203,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                         ₹{item?.amount}
                       </td>
                       <td className="px-2 py-1 border-b border-gray-200  text-nowrap ">{item?.date?.split("T")[0]}</td>
-                      <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
+                      <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes==""?"-":item?.notes}</td>
                       {/* <td className="px-2 py-1 border-b border-gray-200 " onClick={() => handleUpdate(item.id)}>
                         <SquarePen size={18} className="text-purple-500 hover:text-purple-700 cursor-pointer" /></td> */}
                       <td className="px-2 py-1 border-b border-gray-200" onClick={() => handleDelete(item.id)}>

@@ -11,7 +11,7 @@ import {
   Wallet,
   X,
   LogOut,
-  ChartNoAxesCombined,ShoppingCart, Sparkles, PiggyBank,
+  ChartNoAxesCombined, ShoppingCart, Sparkles, PiggyBank,
 } from "lucide-react";
 
 
@@ -34,38 +34,38 @@ const Home = ({ handleLogout }) => {
 
   const [choosenCategory, setChoosenCategory] = useState("")
 
-const DASHBOARD_CARDS = [
-  {
-    Icon: Wallet,
-    title: "Balance",
-    color: "purple",
-    desc: " Amount available for this budget period. ",
-    value: 60000,
-    month:monthChoice,
-    year:yearChoice
-  },
-  {
-    Icon: ShoppingCart,
-    title: "Grocery",
-    color: "green",
-    desc: "Maximum monthly expense",
-    value: 5000,
-  },
-  {
-    Icon: Sparkles,
-    title: "LifeStyle",
-    color: "yellow",
-    desc: "Maximum monthly expense",
-    value: 5000,
-  },
-  {
-    Icon: PiggyBank,
-    title: "Savings",
-    color: "blue",
-    desc: "Minimum amount you must save monthly ",
-    value: 5000,
-  },
-];
+  const DASHBOARD_CARDS = [
+    {
+      Icon: Wallet,
+      title: "Balance",
+      color: "purple",
+      desc: " Amount available for this budget period. ",
+      value: 60000,
+      month: monthChoice,
+      year: yearChoice
+    },
+    {
+      Icon: ShoppingCart,
+      title: "Grocery",
+      color: "green",
+      desc: "Maximum monthly expense",
+      value: 5000,
+    },
+    {
+      Icon: Sparkles,
+      title: "LifeStyle",
+      color: "yellow",
+      desc: "Maximum monthly expense",
+      value: 5000,
+    },
+    {
+      Icon: PiggyBank,
+      title: "Savings",
+      color: "blue",
+      desc: "Minimum amount you must save monthly ",
+      value: 5000,
+    },
+  ];
 
 
   useEffect(() => {
@@ -74,17 +74,17 @@ const DASHBOARD_CARDS = [
     loadExpenses()
     setBudgetData(DASHBOARD_CARDS)
   }, [])
-  useEffect(()=>{
-    
+  useEffect(() => {
+
     setBudgetData(DASHBOARD_CARDS)
-  },[AllExpense])
+  }, [AllExpense])
 
   // Dashboard Data
-  const expenseMonth =(item)=>  month[new Date(item?.date).getMonth()]
-  const expenseYear =(item)=> new Date(item?.date).getFullYear() 
+  const expenseMonth = (item) => month[new Date(item?.date).getMonth()]
+  const expenseYear = (item) => new Date(item?.date).getFullYear()
 
   // console.log(expenseMonth,monthChoice,expenseYear)
-  const totalSpendNow = AllExpense?.filter((item)=>  expenseMonth(item) === monthChoice
+  const totalSpendNow = AllExpense?.filter((item) => expenseMonth(item) === monthChoice
     && expenseYear(item) === yearChoice).reduce((sum, item) => sum + item.amount, 0)
 
   const TotalSavings = AllExpense?.filter((item) => item.category === "Savings"
@@ -92,9 +92,9 @@ const DASHBOARD_CARDS = [
     && expenseYear(item) === yearChoice
   ).reduce((sum, item) => sum + item.amount, 0)
 
-  const Grocery = AllExpense?.filter((item) => item.category === "Grocery"   && expenseMonth(item) === monthChoice
+  const Grocery = AllExpense?.filter((item) => item.category === "Grocery" && expenseMonth(item) === monthChoice
     && expenseYear(item) === yearChoice).reduce((sum, item) => sum + item.amount, 0)
-  const LifeStyle = AllExpense?.filter((item) => item.category === "LifeStyle"   && expenseMonth(item) === monthChoice
+  const LifeStyle = AllExpense?.filter((item) => item.category === "LifeStyle" && expenseMonth(item) === monthChoice
     && expenseYear(item) === yearChoice).reduce((sum, item) => sum + item.amount, 0)
   const dashboard_data = {
     totalSpendNow,
@@ -268,7 +268,7 @@ const DASHBOARD_CARDS = [
           <div className="flex items-center rounded-xl  p-3 text-purple-600">
             <Wallet size={24} />
             <h2 className="pl-2 text-md md:text-lg font-semibold text-purple-600">
-              FinGo <span className="text-gray-400 text-[10px] mdtext-sm">V2.1</span>
+              FinGo <span className="text-gray-400 text-[10px] mdtext-sm">V2.2</span>
             </h2>
           </div>
           <div className="flex items-center justify-between ">
@@ -299,7 +299,32 @@ const DASHBOARD_CARDS = [
           {showBudget ? <BudgetPlanModal setShowBudget={setShowBudget} budgetData={budgetData} setBudgetData={setBudgetData} monthChoice={monthChoice} yearChoice={yearChoice} setMonthChoice={setMonthChoice} setYearChoice={setYearChoice} /> : ""}
           <Dashboard handleLogout={handleLogout} dashboard_data={dashboard_data} budgetData={budgetData} setChoosenCategory={setChoosenCategory} />
 
-          <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-53 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-white text-purple-600 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer " aria-label="Add Expense">  ➕ Add Expense </div>
+          {/* <div onClick={() => setDisplayAddExpense(true)} className="fixed bottom-6 right-6 p-2 text-nowrap  max-w-11 hover:max-w-64 transition-[max-width] duration-1000 ease-in-out overflow-hidden  bg-purple-800 text-purple-100 bold text-lg  rounded-4xl border-3 border-purple-700 cursor-pointer " aria-label="Add Expense">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            ></svg>
+            Add Expense </div> */}
+          <button
+            onClick={() => setDisplayAddExpense(true)}
+            aria-label="Add Expense"
+            className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-purple-600 hover:bg-purple-700 active:scale-95 text-white rounded-full shadow-lg hover:shadow-2xl transition-all duration-200 cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
           {displayAddExpense &&
             <AddExpense AddNewExpense={AddNewExpense} editableExpense={editableExpense} UpdateExpenseDB={UpdateExpenseDB} onClose={onClose} />
           }
