@@ -103,8 +103,8 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
           <div className="flex flex-col gap-2.5 md:hidden">
             {UpdatedList?.map((item,index) => (
               <div
-                key={item.createdAt || item.id}
-                className="flex items-center justify-between p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm"
+                key={item.createdAt || item.id}  onClick={() => handleUpdate(item.id)}
+                className="flex items-center justify-between hover:bg-purple-200 cursor-pointer p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm"
               >
                 {/* Left: Category info & Date/Notes */}
                 <div className="flex flex-col  min-w-0 pr-3">
@@ -140,7 +140,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                     <button
                       type="button"
                       onClick={() => handleUpdate(item.id)}
-                      className="p-1 text-purple-500 hover:text-purple-700 active:scale-95"
+                      className="p-1 text-purple-300 hover:text-purple-700 active:scale-95 cursor-pointer"
                       aria-label="Update Button"
                     >
                       <SquarePen size={16} />
@@ -148,7 +148,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                     <button
                       type="button"
                       onClick={() => handleDelete(item.id)}
-                      className="p-1 text-purple-500 hover:text-red-600 active:scale-95"
+                      className="p-1 text-red-300 hover:text-red-600 active:scale-95 cursor-pointer"
                       aria-label="delete Button"
                     >
                       <Trash2 size={16} />
@@ -161,7 +161,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
         {/* // Desktop view */}
           <div className="hidden md:block scrollbar-thumb-purple-700 scrollbar-track-sky-100 overflow-auto  rounded-xl border border-gray-200">
             <table className="min-w-full border-collapse text-sm ">
-              <thead className="bg-amber-50 text-amber-800">
+              <thead className="bg-purple-100 text-purple-800 ">
 
                 <tr>
                   <th className="px-2 py-1 text-left font-semibold border-b border-gray-200 text-nowrap">
@@ -195,7 +195,7 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                 {UpdatedList?.map((item, index) => {
                   return (
 
-                    <tr key={item.createdAt} className="odd:bg-white even:bg-gray-50 hover:bg-amber-50 transition  ">
+                    <tr key={item.createdAt} className="odd:bg-white even:bg-gray-50 hover:bg-purple-200  transition  cursor-pointer" onClick={() => handleUpdate(item.id)}>
                       <td className="px-2 py-1 border-b border-gray-200">{index + 1}</td>
                       <td className="px-2 py-1 border-b border-gray-200">{item?.category}</td>
                       <td className="px-2 py-1 border-b border-gray-200">{item?.subcategory}</td>
@@ -204,10 +204,10 @@ const ExpenseList = ({ AllExpense, handleDelete, handleUpdate, monthChoice, setM
                       </td>
                       <td className="px-2 py-1 border-b border-gray-200  text-nowrap ">{item?.date?.split("T")[0]}</td>
                       <td className="px-2 py-1 border-b border-gray-200  max-w-20 truncate">{item?.notes}</td>
-                      <td className="px-2 py-1 border-b border-gray-200 " onClick={() => handleUpdate(item.id)}>
-                        <SquarePen size={18} className="text-purple-500 hover:text-purple-700 cursor-pointer" /></td>
+                      {/* <td className="px-2 py-1 border-b border-gray-200 " onClick={() => handleUpdate(item.id)}>
+                        <SquarePen size={18} className="text-purple-500 hover:text-purple-700 cursor-pointer" /></td> */}
                       <td className="px-2 py-1 border-b border-gray-200" onClick={() => handleDelete(item.id)}>
-                        <Trash2 size={18} className="text-purple-500 hover:text-red-700 cursor-pointer" /></td>
+                        <Trash2 size={18} className="text-red-300 hover:text-red-700 cursor-pointer" /></td>
                       {/* <td className="px-2 py-1 border-b border-gray-200"></td> */}
                     </tr>)
                 })}

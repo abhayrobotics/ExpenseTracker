@@ -91,10 +91,10 @@ const Dashboard = ({ dashboard_data, budgetData, handleLogout, choosenCategory, 
 
         {/* Small cards  */}
         {dashboardCards?.map((card) => (
-          <div key={card?.id} onClick={() => setChoosenCategory(card.category)} className={`hover:border-black cursor-pointer ${card?.colorStyles?.bg} ${card?.border} border border-rose-100 rounded-2xl p-2 shadow-sm`}>
+          <div key={card?.id} onClick={() => setChoosenCategory(card.category)} className={`hover:border-black cursor-pointer  ${card?.colorStyles?.bg} ${card?.border} border border-rose-100 rounded-2xl p-2 shadow-sm`}>
             <p className={`text-sm  font-medium ${card?.colorStyles?.title}`}>{card.title}</p>
-            <h3 className={`text-sm md:text-md font-bold ${card?.colorStyles?.amount} mt-2`}>
-              ₹{card?.amount}
+            <h3 className={`text-sm md:text-md font-bold ${card?.colorStyles?.amount}  mt-2`}>
+              ₹{card?.amount.toLocaleString('en-IN')}
             </h3>
             {card?.desc ?
               // Total spend
